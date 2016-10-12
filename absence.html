@@ -1,8 +1,76 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title></title>
-    <meta content="">
-    <style></style>
+    <meta charset="utf-8" />
+    <title>Une absence</title>
   </head>
-  <body></body>
+
+  <body>
+    <h1>absence</h1>
+    <input id='retour' type="button" value="retour"/>
+    <form>
+      <input list="nomDuProf" id='nom' placeholder="NOM DU PROF" name="q" /><br>
+      <datalist id="nomDuProf">
+      	<option value="Bachmann"> 
+      	<option value="Renfer">
+      	<option value="Heuer">
+      	<option value="Pazzou">
+      	<option value="Barranco">
+      	<option value="Schleining">
+      </datalist>
+      
+      <input id='ddjdeb' type='number' placeholder="DD" value='' min="01" max="31" maxlength="2" />
+      <input id='mmjdeb' type='number' placeholder="MM" min="02" max="12" maxlength="2" />
+      <input id='yyjdeb' type='number' placeholder="YYYY" min="2016" max="2020" maxlength="4" />
+      <input id='ajd' type='button' value="aujourd'hui" />
+      <input id='demain' type='button' value="demain" /><br>
+      <input id='hhjdeb' type='number' placeholder="HH" value='' min="0" max="24" maxlength="2" />
+      <input id='mijdeb' type='number' placeholder="HH" value='' min="0" max="59" maxlength="2" /><br>
+      
+       <input id='ddjfin' type='number' placeholder="DD" value='' min="01" max="31" maxlength="2" />
+      <input id='mmjfin' type='number' placeholder="MM" min="02" max="12" maxlength="2" />
+      <input id='yyjfin' type='number' placeholder="YYYY" min="2016" max="2020" maxlength="4" /><br>
+      <input id='hhjfin' type='number' placeholder="HH" value='' min="0" max="24" maxlength="2" />
+      <input id='mijfin' type='number' placeholder="HH" value='' min="0" max="59" maxlength="2" /><br>
+      
+      <input id='confirmer' type='button' value='confirmer'/>
+    </form>
+    <p id='resultat'></p>
+    <script>
+      var info = {"prof":"","hdeb":"","hfin":"","jdeb":"","jfin":""},
+          d = new Date();
+      document.getElementById('retour').addEventListener('click', function() {
+        window.location.href = 'menu.html';
+      });
+      var nom=document.getElementById('nom'),
+          ddjdeb=document.getElementById('ddjdeb'),
+          mmjdeb=document.getElementById('mmjdeb'),
+          yyjdeb=document.getElementById('yyjdeb'),
+          hhjdeb=document.getElementById('hhjdeb'),
+          mijdeb=document.getElementById('mijdeb'),
+          ddjfin=document.getElementById('ddjfin'),
+          mmjfin=document.getElementById('mmjfin'),
+          yyjfin=document.getElementById('yyjfin'),
+          hhjfin=document.getElementById('hhjfin'),
+          mijfin=document.getElementById('mijfin');
+          
+      document.getElementById('ajd').addEventListener('click', function() {
+        ddjdeb.value=ddjfin.value=d.getDate();
+        mmjdeb.value=mmjfin.value=d.getMonth()+1;
+        yyjdeb.value=yyjfin.value=d.getFullYear();
+        hhjdeb.value=hhjfin.value=d.getHours();
+        mijdeb.value=mijfin.value=d.getMinutes();
+      });
+      document.getElementById('demain').addEventListener('click', function() {
+        ddjdeb.value=ddjfin.value=d.getDate()+1;
+        mmjdeb.value=mmjfin.value=d.getMonth()+1;
+        yyjdeb.value=yyjfin.value=d.getFullYear();
+      });
+      document.getElementById('confirmer').addEventListener('click', function() {
+        info.prof=nom.value;
+        info.jdeb=ddjdeb.value;
+        document.getElementById('resultat').innerHTML=info.prof;
+      });
+    </script>
+  </body>
 </html>
