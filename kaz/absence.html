@@ -32,9 +32,7 @@
    </section>
       <section id="cours">
         <section id="hour1">
-          <p>
-            Nom de cours : <input type="text" class="hour">
-            <select name="hour" size="1">
+            <select id="premiercours1" name="hour" size="1">
                 <option value="h1" selected>h1</option>
                 <option value="h2">h2</option>
                 <option value="h3">h3</option>
@@ -47,7 +45,7 @@
                 <option value="h10">h10</option>
                 <option value="h11">h11</option>
               </select>
-            <select name="hour" size="1">
+            <select id="deuxiemecours1" name="hour" size="1">
                 <option value="zero"> </option>
                 <option value="h1">h1</option>
                 <option value="h2" selected>h2</option>
@@ -61,23 +59,34 @@
                 <option value="h10">h10</option>
                 <option value="h11">h11</option>
               </select>
-          </p>
+               Nom de cours : <input type="text" class="hour"></input>
+              <br>
          </section>
 
     </form>
 
     <script>
-      i=2;
+      var i=2;
       document.getElementById("plus").addEventListener("click",function(){
         var a=document.getElementById("hour1");
         var clone=a.cloneNode(true);
         clone.id="hour"+i;
+        clone.childNodes[1].id="premiercours"+i;
+        clone.childNodes[1].nextElementSibling.id="deuxiemecours"+i;
+        console.log(clone.innerHTML);
         var b=document.getElementById("cours");
         b.appendChild(clone);
         console.log(b.innerHTML);
         i++;
         return i;
        });
+     for(n=1;n<i+1;n++){
+     var leselements = document.getElementById("cours");
+     leselements.addEventListener("change", function(e){
+     var premih = e.target.selectedIndex;
+     e.target.nextElementSibling.selectedIndex=premih+2;
+     });
+     }
     </script>
   </body>
 </html>
