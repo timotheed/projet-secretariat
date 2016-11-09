@@ -1,0 +1,25 @@
+<!DOCTYPE html >
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>JavaScript Sample</title>
+    <link rel="stylesheet" type="text/css" href="main.css" media="all">
+
+  </head>
+  <body>
+    <h1>別ファイルにデータを渡す(送信側)</h1>
+    <form action="./setcss.cgi" method="get" name="mainForm">
+    送信文字：<input type="text" name="sendText" id="sendText" value="Sample"><br>
+    <input type="button" id="sendButton" value="別ページに送信">
+    </form>
+    <script type="text/javascript">
+      window.onload = function(){
+      document.getElementById("sendButton").onclick = function(){
+      var text = document.getElementById("sendText").value;
+      location.href = "2.html?data="+encodeURIComponent(text);
+      };
+      };
+    </script>
+  </body>
+</html>
