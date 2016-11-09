@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-a {
+#return {
   display: inline-block;
   background: rgb(26,26,26);
   color: white;
@@ -23,6 +23,14 @@ a {
   text-align: left ;
   text-decoration: none;
   border-radius: 6px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#nomdate{
+  display: inline-block;
 }
 
 /*p.choix {
