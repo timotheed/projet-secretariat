@@ -14,55 +14,63 @@
       <p id="header"><strong> Absence </strong></p>
     </header>
 
-    <form style="background: white;">
-      <input id="confirmer" type="button" value='confirmer'>
-      <section id="nomprof">
-        <input type="text" list="nomDuProf" id='nomprof' placeholder="NOM DU PROF"></p><br>
-
-        <datalist id="nomDuProf">
-      	<option value="Bachmann">
-      	<option value="Renfer">
-      	<option value="Heuer">
-      	<option value="Pazzou">
-      	<option value="Barranco">
-      	<option value="Schleining">
-        </datalist>
-      </section>
-     <button type="button" id="plus" style="border-radius: 5px;" >+</button>
-   </section>
-      <section id="cours">
-        <section id="hour1">
-            <select id="premiercours1" name="hour" size="1">
-                <option value="h1" selected>h1</option>
-                <option value="h2">h2</option>
-                <option value="h3">h3</option>
-                <option value="h4">h4</option>
-                <option value="h5">h5</option>
-                <option value="h6">h6</option>
-                <option value="h7">h7</option>
-                <option value="h8">h8</option>
-                <option value="h9">h9</option>
-                <option value="h10">h10</option>
-                <option value="h11">h11</option>
-              </select>
-            <select id="deuxiemecours1" name="hour" size="1">
-                <option value="zero"> </option>
-                <option value="h1">h1</option>
-                <option value="h2" selected>h2</option>
-                <option value="h3">h3</option>
-                <option value="h4">h4</option>
-                <option value="h5">h5</option>
-                <option value="h6">h6</option>
-                <option value="h7">h7</option>
-                <option value="h8">h8</option>
-                <option value="h9">h9</option>
-                <option value="h10">h10</option>
-                <option value="h11">h11</option>
-              </select>
-               Nom de cours : <input type="text" class="hour"></input>
-              <br>
-         </section>
-
+    <form style="background: white; text-align:center;">
+      <button id="confirmer" type="button" style="border-radius: 5px;">confirmer</button>
+      <table style="width:100%">
+        <tr>
+          <th><br>
+            <section id="nomprof">
+              <input type="text" list="nomDuProf" id='nomprof' placeholder="NOM DU PROF"><br>
+              <datalist id="nomDuProf">
+                <option value="Bachmann">
+                <option value="Renfer">
+              	<option value="Heuer">
+              	<option value="Pazzou">
+              	<option value="Barranco">
+              	<option value="Schleining">
+              </datalist>
+              <input type="date" id="date" placeholder="date">
+            </section><br>
+            <button type="button" id="plus" style="border-radius: 5px;" >+</button>
+            <section id="cours">
+              <section id="hour1">
+                <select id="premiercours1" name="hour" size="1">
+                    <option value="h1" selected>h1</option>
+                    <option value="h2">h2</option>
+                    <option value="h3">h3</option>
+                    <option value="h4">h4</option>
+                    <option value="h5">h5</option>
+                    <option value="h6">h6</option>
+                    <option value="h7">h7</option>
+                    <option value="h8">h8</option>
+                    <option value="h9">h9</option>
+                    <option value="h10">h10</option>
+                    <option value="h11">h11</option>
+                </select>
+                <select id="deuxiemecours1"name="hour" size="1">
+                    <option value="zero"> </option>
+                    <option value="h1">h1</option>
+                    <option value="h2" selected>h2</option>
+                    <option value="h3">h3</option>
+                    <option value="h4">h4</option>
+                    <option value="h5">h5</option>
+                    <option value="h6">h6</option>
+                    <option value="h7">h7</option>
+                    <option value="h8">h8</option>
+                    <option value="h9">h9</option>
+                    <option value="h10">h10</option>
+                    <option value="h11">h11</option>
+                  </select>
+                  Nom de cours : <input type="text" class="hour">
+                  <br>
+              </section>
+            </section>
+          </th>
+          <th>
+            <textarea name="moreinfo" cols="40" rows="5">more information</textarea>
+          </th>
+        </tr>
+      </table>
     </form>
 
     <script>
@@ -73,20 +81,18 @@
         clone.id="hour"+i;
         clone.childNodes[1].id="premiercours"+i;
         clone.childNodes[1].nextElementSibling.id="deuxiemecours"+i;
-        console.log(clone.innerHTML);
         var b=document.getElementById("cours");
         b.appendChild(clone);
-        console.log(b.innerHTML);
         i++;
         return i;
        });
-     for(n=1;n<i+1;n++){
-     var leselements = document.getElementById("cours");
-     leselements.addEventListener("change", function(e){
-     var premih = e.target.selectedIndex;
-     e.target.nextElementSibling.selectedIndex=premih+2;
-     });
-     }
+       for(n=1;n<i+1;n++){
+       var leselements = document.getElementById("cours");
+       leselements.addEventListener("change", function(e){
+       var premih = e.target.selectedIndex;
+       e.target.nextElementSibling.selectedIndex=premih+2;
+       });
+       }
     </script>
   </body>
 </html>
