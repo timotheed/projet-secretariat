@@ -3,6 +3,7 @@ body {
        background: url(chat.jpg) center;
        /*text-align: center;*/
        font-family: Arial, sans-serif;
+       background-attachment: fixed;
      }
 
 #header {
@@ -24,6 +25,10 @@ body {
   text-decoration: none;
   border-radius: 6px;
 }
+
+/*#moreinfo{
+  margin-top: 100px;
+}*/
 
 table, th, td {
     border: 1px solid black;
