@@ -62,7 +62,7 @@
                     <option value="h10">h10</option>
                     <option value="h11">h11</option>
                   </select>
-                  Nom de cours : <input type="text" class="hour">
+                  Nom de cours : <input type="text" class="hour"><br>
                   <br>
               </section>
             </section>
@@ -88,14 +88,14 @@
           i++;
         };
         return i;
-       });
-       for(n=1;n<i+1;n++){
-       var leselements = document.getElementById("cours");
-       leselements.addEventListener("change", function(e){
-       var premih = e.target.selectedIndex;
-       e.target.nextElementSibling.selectedIndex=premih+2;
-       });
-       }
+      });
+      for(n=1;n<i+1;n++){
+        var leselements = document.getElementById("cours");
+        leselements.addEventListener("change", function(e){
+          var premih = e.target.selectedIndex;
+          e.target.nextElementSibling.selectedIndex=premih+2;
+        });
+      };
     </script>
   </body>
 </html>
