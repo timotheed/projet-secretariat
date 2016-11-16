@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+      document.write(Date());
+  </head>
+  <body>
+      <script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+       <input type="file">
+      <form>
+  Sélectionnez une valeur dans la liste déroulante
+  <select id="un">
+    <option>J'aime jQuery</option>
+    <option>J'adore jQuery</option>
+    <option>Je raffole de jQuery</option>
+    <option>jQuery ? Jamais entendu parler !</option>
+  </select>
+  <select id="de">
+    <option>11111111</option>
+    <option>222222</option>
+    <option>3333</option>
+  </select>
+</form><br />
+
+<span id="resultatun"></span><br />
+<span id="resultatde"></span><br />
+
+
+<script>
+  $(function() {
+    $('#un').change(function() {
+        $('#resultatun').text('Vous venez de sélectionner "' + $(this).val() +'".');
+    });
+  });
+  $(function(){
+    $('#de').change(function() {
+    $('#resultatde').text('la valeur du ' + $(this).val());
+  });
+  });
+</script>
+      <script type="text/javascript">
+        d = new Date();
+      document.write("<p>Aujourd'hui, nous sommes le : <span style='color:red;'>");
+      document.write(d.toLocaleDateString());
+      document.write("</span></p>");
+    </script>
+    <script>
+
+        $("input").change(function (e) {
+
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+        var file = e.originalEvent.srcElement.files[i];
+
+        var img = document.createElement("img");
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+        $("input").after(img);
+    }
+});</script>
+
+
+  </body>
+</html>
