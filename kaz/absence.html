@@ -21,19 +21,17 @@
         <tr>
           <th><br>
             <section id="nomprof">
-              <input type="text" list="nomDuProf" id='nomprof' placeholder="NOM DU PROF"><br>
-              <datalist id="nomDuProf">
-                <option value="Bachmann">
-                <option value="Renfer">
-              	<option value="Heuer">
-              	<option value="Pazzou">
-              	<option value="Barranco">
-              	<option value="Schleining">
-              </datalist>
+            
+              <input list="nomDuProf" id='nom' placeholder="NOM DU PROF" name="q" /><br>
+      		<datalist id="nomDuProf">
+     		</datalist>
+          	  <br/>
+      		
               <input type="text" size="3" maxlength="2" id="day" placeholder="day">
               <input type="text" size="3" maxlength="2" id="month" placeholder="month">
               <input type="text" size="4" maxlength="4" id="years" placeholder="years">
             </section><br>
+            
             <button type="button" id="plus" style="border-radius: 5px;" >+</button>
             <section id="cours">
               <section id="hour1">
@@ -64,7 +62,9 @@
                     <option value="h10">h10</option>
                     <option value="h11">h11</option>
                   </select>
-                  Nom de cours : <input type="text" class="hour"><br>
+                  Nom de cours : <input list="nomDuCours" id='nomCours' placeholder="NOM DU COURS" name="p" /><br>
+     		<datalist id="nomDuCours">
+      		</datalist>
                   <br>
               </section>
             </section>
@@ -75,7 +75,7 @@
         </tr>
       </table>
     </form>
-
+<p id='resultat'></p>
     <script>
       var i=2;
       document.getElementById("plus").addEventListener("click",function(){
@@ -98,6 +98,49 @@
           e.target.nextElementSibling.selectedIndex=premih+2;
         });
       };
+      var xmlhttp = new XMLHttpRequest();
+	var url = "donnees_profs.txt";
+	var cetobj ={} ;
+	var n =0;
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        myFunction(myArr);
+        mFunction(myArr);
+    };
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr) {
+	for (var i in arr.profs) {
+	document.getElementById("nomDuProf").innerHTML += '<option value="'+arr.profs[i].name+'">';
+	};	
+};
+
+function mFunction(arr) {
+	
+	document.getElementById("nom").addEventListener("blur",function(){
+	n = 0 ;
+	while(arr.profs[n].name != nom.value){
+	n++;
+	};
+	document.getElementById("nomDuCours").innerHTML = "";
+        for (var o in arr.profs[n].cours){
+        document.getElementById("nomDuCours").innerHTML += '<option value="'+arr.profs[n].cours[o]+'">';
+        };
+        });
+        document.getElementById("confirmer").addEventListener("click",function(){
+        cetobj.prof = nom.value,
+        cetobj.cours = nomCours.value;
+        document.getElementById("resultat").innerHTML = cetobj.prof+" : "+cetobj.cours;
+        });
+};
+      
+      
+      
+      
     </script>
   </body>
 </html>
