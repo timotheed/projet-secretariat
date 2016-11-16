@@ -3,7 +3,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf8">
-    <title>Information Général</title>
+    <title>Information Particulière</title>
     <link rel="shot cut icon" href="subaru.ico">
     <link rel="stylesheet" href="absence.css">
   </head>
@@ -11,11 +11,58 @@
   <body>
     <header>
       <a href="acceuil.html" id="return">return</a>
-      <p id="header"><strong>Information Général </strong></p>
+      <p id="header"><strong>Information Particulière </strong></p>
     </header>
+    <input id='ddjfin' type='number' placeholder="DD" value='' min="01" max="31" maxlength="2" />
+      <input id='mmjfin' type='number' placeholder="MM" min="01" max="12" maxlength="2" />
+      <input id='yyjfin' type='number' placeholder="YYYY" min="2016" max="2020" maxlength="4" />
 
+      <input id='ajd' type='button' value="aujourd'hui" />
+
+      <input id='demain' type='button' value="demain" /><br>
+
+      <input id='hhjfin' type='number' placeholder="HH" value='' min="0" max="24" maxlength="2" />
+      <input id='mijfin' type='number' placeholder="HH" value='' min="0" max="59" maxlength="2" /><br>
 
     <script>
+    var info = {"prof":"","hfin":"","jfin":""},
+       d = new Date();
+
+   document.getElementById('retour').addEventListener('click', function() {
+     window.location.href = 'accueil.html';
+   });
+
+   var nom=document.getElementById('nom'),
+       ddjdeb=document.getElementById('ddjdeb'),
+       mmjdeb=document.getElementById('mmjdeb'),
+       yyjdeb=document.getElementById('yyjdeb'),
+       hhjdeb=document.getElementById('hhjdeb'),
+       mijdeb=document.getElementById('mijdeb'),
+       ddjfin=document.getElementById('ddjfin'),
+       mmjfin=document.getElementById('mmjfin'),
+       yyjfin=document.getElementById('yyjfin'),
+       hhjfin=document.getElementById('hhjfin'),
+       mijfin=document.getElementById('mijfin');
+
+   document.getElementById('ajd').addEventListener('click', function() {
+     ddjfin.value=ddjfin.value=d.getDate();
+     mmjfin.value=mmjfin.value=d.getMonth()+1;
+     yyjfin.value=yyjfin.value=d.getFullYear();
+     hhjfin.value=hhjfin.value=d.getHours();
+     mijfin.value=mijfin.value=d.getMinutes();
+   });
+
+   document.getElementById('demain').addEventListener('click', function() {
+     ddjfin.value=ddjfin.value=d.getDate()+1;
+     mmjdeb.value=mmjfin.value=d.getMonth()+1;
+     yyjdeb.value=yyjfin.value=d.getFullYear();
+   });
+
+   document.getElementById('confirmer').addEventListener('click', function() {
+     info.prof=nom.value;
+     info.jdeb=ddjdeb.value;
+     document.getElementById('resultat').innerHTML=info.prof;
+   });
     </script>
   </body>
 </html>
