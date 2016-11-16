@@ -15,7 +15,8 @@
     </header>
 
     <form style="background: white; text-align:center;">
-      <button id="confirmer" type="button" style="border-radius: 5px;">confirmer</button>
+      <button id="confirmer" type="submit" style="border-radius: 5px;">confirmer</button>
+      <button type="reset" style="border-radius: 5px;">reset</button>
       <table style="width:100%">
         <tr>
           <th><br>
@@ -66,8 +67,8 @@
               </section>
             </section>
           </th>
-          <th>
-            <textarea name="moreinfo" cols="40" rows="5">more information</textarea>
+          <th valign="top">
+            <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
           </th>
         </tr>
       </table>
@@ -76,14 +77,16 @@
     <script>
       var i=2;
       document.getElementById("plus").addEventListener("click",function(){
-        var a=document.getElementById("hour1");
-        var clone=a.cloneNode(true);
-        clone.id="hour"+i;
-        clone.childNodes[1].id="premiercours"+i;
-        clone.childNodes[1].nextElementSibling.id="deuxiemecours"+i;
-        var b=document.getElementById("cours");
-        b.appendChild(clone);
-        i++;
+        if(i<12){
+          var a=document.getElementById("hour1");
+          var clone=a.cloneNode(true);
+          clone.id="hour"+i;
+          clone.childNodes[1].id="premiercours"+i;
+          clone.childNodes[1].nextElementSibling.id="deuxiemecours"+i;
+          var b=document.getElementById("cours");
+          b.appendChild(clone);
+          i++;
+        };
         return i;
        });
        for(n=1;n<i+1;n++){
