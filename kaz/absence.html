@@ -3,6 +3,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf8">
+	<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <title>Absence</title>
     <link rel="shot cut icon" href="subaru.ico">
     <link rel="stylesheet" href="absence.css">
@@ -20,22 +21,25 @@
       <table style="width:100%">
         <tr>
           <th><br>
-            <section id="nomprof">
-            
-              <input list="nomDuProf" id='nom' placeholder="NOM DU PROF" name="q" /><br>
-      		<datalist id="nomDuProf">
+            <section id="prof">
+            <label for="nomDuProf">Nom du professeur : </label>
+              <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br>
+      		<datalist id="optionsNomDuProf">
      		</datalist>
           	  <br/>
-      		
-              <input type="text" size="3" maxlength="2" id="day" placeholder="day">
-              <input type="text" size="3" maxlength="2" id="month" placeholder="month">
-              <input type="text" size="4" maxlength="4" id="years" placeholder="years">
+			</section>
+			<section id="date">
+			<label for="day">Date de l'absence : </label>
+              <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
+              <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
+              <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
+			  <p id="jourDeLaSemaine"></p>
             </section><br>
             
             <button type="button" id="plus" style="border-radius: 5px;" >+</button>
             <section id="cours">
-              <section id="hour1">
-                <select id="premiercours1" name="hour" size="1">
+              <section id="lecon1">
+                <select id="premiereHeure1" name="lecon" size="1">
                     <option value="h1" selected>h1</option>
                     <option value="h2">h2</option>
                     <option value="h3">h3</option>
@@ -47,8 +51,8 @@
                     <option value="h9">h9</option>
                     <option value="h10">h10</option>
                     <option value="h11">h11</option>
-                </select>
-                <select id="deuxiemecours1"name="hour" size="1">
+                 </select>
+                 <select id="deuxiemeHeure1" name="lecon" size="1">
                     <option value="zero"> </option>
                     <option value="h1">h1</option>
                     <option value="h2" selected>h2</option>
@@ -61,10 +65,10 @@
                     <option value="h9">h9</option>
                     <option value="h10">h10</option>
                     <option value="h11">h11</option>
-                  </select>
-                  Nom de cours : <input list="nomDuCours" id='nomCours' placeholder="NOM DU COURS" name="p" /><br>
-     		<datalist id="nomDuCours">
-      		</datalist>
+                 </select>
+				 Nom du cours : <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
+     		     <datalist id="optionsNomDuCours">
+      		     </datalist>
                   <br>
               </section>
             </section>
@@ -76,71 +80,100 @@
       </table>
     </form>
 <p id='resultat'></p>
-    <script>
-      var i=2;
-      document.getElementById("plus").addEventListener("click",function(){
-        if(i<12){
-          var a=document.getElementById("hour1");
-          var clone=a.cloneNode(true);
-          clone.id="hour"+i;
-          clone.childNodes[1].id="premiercours"+i;
-          clone.childNodes[1].nextElementSibling.id="deuxiemecours"+i;
-          var b=document.getElementById("cours");
-          b.appendChild(clone);
-          i++;
-        };
-        return i;
-      });
-      for(n=1;n<i+1;n++){
-        var leselements = document.getElementById("cours");
-        leselements.addEventListener("change", function(e){
-          var premih = e.target.selectedIndex;
-          e.target.nextElementSibling.selectedIndex=premih+2;
-        });
-      };
-      var xmlhttp = new XMLHttpRequest();
-	var url = "donnees_profs.txt";
-	var cetobj ={} ;
-	var n =0;
-
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var myArr = JSON.parse(this.responseText);
-        myFunction(myArr);
-        mFunction(myArr);
-    };
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
-
-function myFunction(arr) {
-	for (var i in arr.profs) {
-	document.getElementById("nomDuProf").innerHTML += '<option value="'+arr.profs[i].name+'">';
-	};	
-};
-
-function mFunction(arr) {
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script>
+	var i=1;
+	document.getElementById("plus").addEventListener("click",function(){
+		if(i<11){
+			i++;
+			var a=document.getElementById("lecon1"),
+			    clone=a.cloneNode(true);
+			clone.id="lecon"+i;
+			clone.childNodes[1].id="premiereHeure"+i;
+			clone.childNodes[1].nextElementSibling.id="deuxiemeHeure"+i;
+			clone.childNodes[1].nextElementSibling.nextElementSibling.id="nomDuCours"+i;
+			clone.childNodes[1].nextElementSibling.nextElementSibling.value="";
+			var b=document.getElementById("cours");
+			b.appendChild(clone);
+		};
+		return i;
+	});
 	
-	document.getElementById("nom").addEventListener("blur",function(){
-	n = 0 ;
-	while(arr.profs[n].name != nom.value){
-	n++;
+	
+	for(n=1;n<i+1;n++){
+		var leselements = document.getElementById("cours");
+		leselements.addEventListener("change", function(e){
+			var premih = e.target.selectedIndex;
+			e.target.nextElementSibling.selectedIndex=premih+2;
+		});
 	};
-	document.getElementById("nomDuCours").innerHTML = "";
-        for (var o in arr.profs[n].cours){
-        document.getElementById("nomDuCours").innerHTML += '<option value="'+arr.profs[n].cours[o]+'">';
-        };
-        });
-        document.getElementById("confirmer").addEventListener("click",function(){
-        cetobj.prof = nom.value,
-        cetobj.cours = nomCours.value;
-        document.getElementById("resultat").innerHTML = cetobj.prof+" : "+cetobj.cours;
-        });
-};
-      
-      
-      
-      
+
+
+	function jsoncallback(data){
+		$(data.profs).each(function() {
+			profsOption = "<option value=\"" + this.name + "\" id=\"" + this.name + "\" label=\"" + this.name + "\">" + this.cours + "</option>";
+			$('#optionsNomDuProf').append(profsOption);
+		});
+	};
+
+	$(document).ready(function() {
+		$.getJSON("http://sismondi.ch/profs_cours?jsoncallback=?");
+	});
+
+	
+	$("input[id='nomDuProf']").focusout('input', function(e){
+		$("datalist[id='optionsNomDuCours']").empty();
+		var selected = $(this).val(),
+		    option = document.getElementById(selected),
+		    liste = option.innerHTML.split(',');
+		for (mot of liste){
+			coursOption = "<option value=\"" + mot + "\" id=\"" + mot + "\">" + mot + "</option>";
+			$("datalist[id='optionsNomDuCours']").append(coursOption);
+		};
+	});
+
+
+	var d = new Date(),
+	    listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+	    listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+	    day = document.getElementById("day"),
+	    month = document.getElementById("month"),
+	    year = document.getElementById("year");
+	document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+	day.value=d.getDate();
+	month.value=d.getMonth()+1;
+	year.value=d.getFullYear();
+
+
+	day.addEventListener("keyup", function() {
+		if((day.value>3 || day.value.length==2) && day.value<32){
+			month.focus();
+		};
+	});
+
+
+	month.addEventListener("keypress", function() {
+		month.addEventListener("keyup", function() {
+			if((month.value>1 || month.value.length==2) && month.value<13 ){
+				year.focus();
+			};
+		});
+	});
+	
+	
+	$("input").keyup( function() {
+		d.setDate(day.value);
+		d.setFullYear(year.value);
+		d.setMonth(month.value-1);
+		document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+	});
+
+
+	$("input").focus(function() {
+		this.select();
+	});
+
+
     </script>
   </body>
 </html>
