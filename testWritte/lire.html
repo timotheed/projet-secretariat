@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+</select>
+<div id="result"></div>
+<span id="resultde"></span>
+<div id="resulttr"></div>
+
+
+<script>
+
+function conventab (x){
+  var i =0;
+  var tabl ="";
+  var lon = x.length;
+  var mem;
+  var ttab = [];
+  for (i = 0; i < lon; i++) {
+      if (x[i]!=",") {
+        tabl += x[i];
+        mem += x[i];}
+        else {
+          tabl += "<br>";
+          ttab.push(mem);
+          mem ="";
+        }
+  }
+  return ttab[0];
+};
+
+
+if (typeof(Storage) !== "undefined") {
+    var resu = localStorage.getItem("lastname");
+    var test ="10,deux,sdd,d,0";
+    document.getElementById("result").innerHTML = typeof resu;
+      document.getElementById("resulttr").innerHTML = localStorage.getItem("deuxieme");
+
+  document.getElementById("resultde").innerHTML = conventab(test);
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+
+
+
+</body>
+</html>

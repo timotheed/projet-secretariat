@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="result"></div>
+<select id="je">
+    <option>1111</option>
+    <option>2222</option>
+    <option>3333</option>
+</select>
+
+<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+
+<script>
+// Check browser support
+//var un= document.getElementById("de").value;
+var un="500,5,2,3,4";
+var de = $('#je').change(function(){$(this).val()});
+if (typeof(Storage) !== "undefined") {
+    localStorage.setItem("lastname", un);
+    localStorage.setItem("deuxieme", de);
+
+    // Retrieve
+    document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+
+/*
+$(function(){
+  $('#').change(function() {
+  $('#').text('la valeur du ' + $(this).val());
+});
+});*/
+</script>
+
+</body>
+</html>
