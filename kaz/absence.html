@@ -15,7 +15,7 @@
       <p id="header"><strong> Absence </strong></p>
     </header>
 
-    <form style="background: white; text-align:center;">
+    <form style="background: white; text-align:center;" name="infoabsence">
       <button id="confirmer" type="submit" style="border-radius: 5px;">confirmer</button>
       <button type="reset" style="border-radius: 5px;">reset</button>
       <table style="width:100%">
@@ -23,7 +23,7 @@
           <th><br>
             <section id="prof">
             <label for="nomDuProf">Nom du professeur : </label>
-              <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br>
+              <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" ><br>
       		<datalist id="optionsNomDuProf">
      		</datalist>
           	  <br/>
@@ -40,31 +40,31 @@
             <section id="cours">
               <section id="lecon1">
                 <select id="premiereHeure1" name="lecon" size="1">
-                    <option value="h1" selected>h1</option>
-                    <option value="h2">h2</option>
-                    <option value="h3">h3</option>
-                    <option value="h4">h4</option>
-                    <option value="h5">h5</option>
-                    <option value="h6">h6</option>
-                    <option value="h7">h7</option>
-                    <option value="h8">h8</option>
-                    <option value="h9">h9</option>
-                    <option value="h10">h10</option>
-                    <option value="h11">h11</option>
+                    <option value="H1" selected>H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
                  </select>
                  <select id="deuxiemeHeure1" name="lecon" size="1">
                     <option value="zero"> </option>
-                    <option value="h1">h1</option>
-                    <option value="h2" selected>h2</option>
-                    <option value="h3">h3</option>
-                    <option value="h4">h4</option>
-                    <option value="h5">h5</option>
-                    <option value="h6">h6</option>
-                    <option value="h7">h7</option>
-                    <option value="h8">h8</option>
-                    <option value="h9">h9</option>
-                    <option value="h10">h10</option>
-                    <option value="h11">h11</option>
+                    <option value="H1">H1</option>
+                    <option value="H2" selected>H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
                  </select>
 				 Nom du cours : <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
      		     <datalist id="optionsNomDuCours">
@@ -141,7 +141,13 @@
 	    year = document.getElementById("year");
 	document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
 	day.value=d.getDate();
+	if(day.value<10) {
+		day.value="0"+day.value;
+	};
 	month.value=d.getMonth()+1;
+	if(month.value<10) {
+		month.value="0"+month.value;
+	};
 	year.value=d.getFullYear();
 
 
@@ -150,7 +156,12 @@
 			month.focus();
 		};
 	});
-
+	
+	day.addEventListener("blur", function() {
+		if(day.value.length==1) {
+			day.value="0"+day.value;
+		};
+	});
 
 	month.addEventListener("keypress", function() {
 		month.addEventListener("keyup", function() {
@@ -160,6 +171,11 @@
 		});
 	});
 	
+	month.addEventListener("blur", function() {
+		if(month.value.length==1) {
+			month.value="0"+month.value;
+		};
+	});
 	
 	$("input").keyup( function() {
 		d.setDate(day.value);
@@ -173,7 +189,57 @@
 		this.select();
 	});
 
-
+    </script>
+	<script name="submit">
+      document.getElementById("confirmer").addEventListener("click",function(){
+		if(document.infoabsence.day.value<10){
+			var day = "0"+String(Number(document.infoabsence.day.value));
+		}else{
+			var day = String(Number(document.infoabsence.day.value));
+		};
+		if(document.infoabsence.month.value<10){
+			var month = "0"+String(Number(document.infoabsence.month.value));
+		}else{
+			var month = String(Number(document.infoabsence.month.value));
+		};
+        year = String(Number(document.infoabsence.year.value));
+        date = year+month+day;
+        lolo=[];
+        if(localStorage[date]===undefined){
+          data=lolo;
+          localStorage[date] = JSON.stringify(data);
+        }
+        else {
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
+        }
+        prof = document.infoabsence.q.value;
+        sousdata = [prof,[],[],[]];
+        a=1;
+        while(a<i+1){
+          petlist = [];
+          granlist = [];
+          petlist.push(document.getElementById("premiereHeure"+a).value);
+          granlist.push(document.getElementById("deuxiemeHeure"+a).value);
+          if (granlist[0]!="zero") {
+            if (granlist[0]!=0){
+              sousdata[1].push(petlist[0] + "-" + granlist[0]);
+            }
+            else {
+              sousdata[1].push(petlist[0]);
+            }
+          }
+            else {
+              sousdata[1].push(petlist[0]);
+            }
+          sousdata[2].push(document.getElementById("nomDuCours"+a).value);
+          // sousdata[3].push(document.getElementById("commentaire"+a).value);
+          a++;
+        };
+        data.push(sousdata);
+        localStorage[date]   = JSON.stringify(data);
+        alert(data[2][1]);
+      });
     </script>
   </body>
 </html>
