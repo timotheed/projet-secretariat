@@ -1,0 +1,51 @@
+<script name="submit">
+      document.getElementById("confirmer").addEventListener("click",function(){
+		if(document.infoabsence.day.value<10){
+			var day = "0"+String(Number(document.infoabsence.day.value));
+		}else{
+			var day = String(Number(document.infoabsence.day.value));
+		};
+		if(document.infoabsence.month.value<10){
+			var month = "0"+String(Number(document.infoabsence.month.value));
+		}else{
+			var month = String(Number(document.infoabsence.month.value));
+		};
+        year = String(Number(document.infoabsence.year.value));
+        date = year+month+day;
+        lolo=[];
+        if(localStorage[date]===undefined){
+          data=lolo;
+          localStorage[date] = JSON.stringify(data);
+        }
+        else {
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
+        }
+        prof = document.infoabsence.q.value;
+        sousdata = [prof,[],[],[]];
+        a=1;
+        while(a<i+1){
+          petlist = [];
+          granlist = [];
+          petlist.push(document.getElementById("premiereHeure"+a).value);
+          granlist.push(document.getElementById("deuxiemeHeure"+a).value);
+          if (granlist[0]!="zero") {
+            if (granlist[0]!=0){
+              sousdata[1].push(petlist[0] + "-" + granlist[0]);
+            }
+            else {
+              sousdata[1].push(petlist[0]);
+            }
+          }
+            else {
+              sousdata[1].push(petlist[0]);
+            }
+          sousdata[2].push(document.getElementById("nomDuCours"+a).value);
+          // sousdata[3].push(document.getElementById("commentaire"+a).value);
+          a++;
+        };
+        data.push(sousdata);
+        localStorage[date]   = JSON.stringify(data);
+        alert(data[2][1]);
+      });
+    </script>
