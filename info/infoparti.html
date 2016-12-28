@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf8">
+    <title>Information Particulière</title>
+    <link rel="shot cut icon" href="subaru.ico">
+    <link rel="stylesheet" href="absence.css">
+  </head>
+
+  <body>
+    <header>
+      <a href="acceuil.html" id="return">return</a>
+      <p id="header"><strong>Information Particulière </strong></p>
+    </header>
+    <form style="background: white; text-align:center;" name="infoparti">
+      <button id="confirmer" type="submit" style="border-radius: 5px;">confirmer</button>
+      <button type="reset" style="border-radius: 5px;">reset</button>
+      <table style="width:100%">
+        <th>
+          <section id="date">
+            <br><label for="day">Date de l'affichage : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
+            <p id="jourDeLaSemaine"></p>
+          </section>
+          <section>
+            Titre : <input name="titre" type="text" placeholder="titre" value="Titre vide" size="30"></textarea><br><br>
+            <textarea name="info" placeholder="information" rows="8" cols="40"></textarea>
+          </section><br>
+        </th>
+      </table>
+    </from>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous">
+    </script>
+
+    <script name="submit">
+      document.getElementById("confirmer").addEventListener("click",function(){
+        if(document.infoparti.day.value<10){
+          var day = "0"+String(Number(document.infoparti.day.value));
+        }else{
+          var day = String(Number(document.infoparti.day.value));
+        };
+        if(document.infoparti.month.value<10){
+          var month = "0"+String(Number(document.infoparti.month.value));
+        }else{
+          var month = String(Number(document.infoparti.month.value));
+        };
+
+        year = String(Number(document.infoparti.year.value));
+        date = year+month+day;
+        if(localStorage[date]===undefined){
+          data=[[],[],[]];
+          localStorage[date] = JSON.stringify(data);
+        }
+        else {
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
+        }
+        titre=document.infoparti.titre.value;
+        commentaire = document.infoparti.info.value;
+        sousdata=[titre,commentaire];
+        data[1].push(sousdata);
+        localStorage[date] = JSON.stringify(data);
+      });
+    </script>
+
+    <script name="datejour">
+    var d = new Date(),
+  	    listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+  	    listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+  	    day = document.getElementById("day"),
+  	    month = document.getElementById("month"),
+  	    year = document.getElementById("year");
+  	document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+  	day.value=d.getDate();
+  	if(day.value<10) {
+  		day.value="0"+day.value;
+  	};
+  	month.value=d.getMonth()+1;
+  	if(month.value<10) {
+  		month.value="0"+month.value;
+  	};
+  	year.value=d.getFullYear();
+  	day.addEventListener("keyup", function() {
+  		if((day.value>3 || day.value.length==2) && day.value<32){
+  			month.focus();
+  		};
+  	});
+  	day.addEventListener("blur", function() {
+  		if(day.value.length==1) {
+  			day.value="0"+day.value;
+  		};
+  	});
+  	month.addEventListener("keypress", function() {
+  		month.addEventListener("keyup", function() {
+  			if((month.value>1 || month.value.length==2) && month.value<13 ){
+  				year.focus();
+  			};
+  		});
+  	});
+  	month.addEventListener("blur", function() {
+  		if(month.value.length==1) {
+  			month.value="0"+month.value;
+  		};
+  	});
+  	$("input").keyup( function() {
+  		d.setDate(day.value);
+  		d.setFullYear(year.value);
+  		d.setMonth(month.value-1);
+  		document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+  	});
+  	$("input").focus(function() {
+  		this.select();
+  	});
+    </script>
+  </body>
+</html>

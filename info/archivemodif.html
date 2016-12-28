@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf8">
+    <title>Archiv+Modif</title>
+    <link rel="shot cut icon" href="subaru.ico">
+    <link rel="stylesheet" href="archivemodif.css">
+  </head>
+
+  <body>
+    <header>
+      <a href="acceuil.html" id="return"> return</a>
+      <p id="header"><strong>Archive+Modifier</strong></p>
+    </header>
+
+    <div id="div1">
+      <section id="datebutton">
+      </section>
+      <section id="typebutton" style="display:none">
+        <button onclick="absence()">Absence</button>
+        <button onclick="infoparti()">Info Particulier</button>
+        <button onclick="infogen()">Info général</button>
+      </section>
+      <section id="one" style="display:none">
+      </section>
+      <section>
+        <button onclick="allclean()">all delete</button>
+      </section>
+    </div>
+
+    <div id="div2">
+      <p>Les informations</p>
+      <section id="date" style="display:none">
+        <br><label for="day">Date de l'affichage : </label>
+        <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
+        <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
+        <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
+        <p id="jourDeLaSemaine"></p>
+      </section>
+
+      <section id="absenceinfo" style="display:none">
+        <p style="font-size:25px">Absence</p>
+        <section id="profnom" style="display:none">
+        <label for="nomDuProf">Nom du professeur : </label>
+          <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br>
+          <datalist id="optionsNomDuProf">
+          </datalist>
+        </section>
+        <section id="cours" style="display:none">
+          <section id="lecon1">
+            <select id="premiereHeure1" name="lecon" size="1">
+                <option value="h1" selected>h1</option>
+                <option value="h2">h2</option>
+                <option value="h3">h3</option>
+                <option value="h4">h4</option>
+                <option value="h5">h5</option>
+                <option value="h6">h6</option>
+                <option value="h7">h7</option>
+                <option value="h8">h8</option>
+                <option value="h9">h9</option>
+                <option value="h10">h10</option>
+                <option value="h11">h11</option>
+            </select>
+            <select id="deuxiemeHeure1" name="lecon" size="1">
+                <option value="zero"> </option>
+                <option value="h1">h1</option>
+                <option value="h2" selected>h2</option>
+                <option value="h3">h3</option>
+                <option value="h4">h4</option>
+                <option value="h5">h5</option>
+                <option value="h6">h6</option>
+                <option value="h7">h7</option>
+                <option value="h8">h8</option>
+                <option value="h9">h9</option>
+                <option value="h10">h10</option>
+                <option value="h11">h11</option>
+            </select>
+            <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
+            <datalist id="optionsNomDuCours">
+            </datalist>
+            <br>
+            <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
+          </section>
+        </section>
+      </section>
+
+      <section id="infopartiinfo" style="display:none">
+
+      </section>
+
+      <section id="infogeninfo" style="display:none">
+
+      </section>
+    </div>
+
+    <script name="date">
+      function datechange(lo){
+        lol=String(lo);
+        year=lol.substr(0,4);
+        month=lol.substring(4,6);
+        date=lol.substring(6,8);
+        datechanged=year+"/"+month+"/"+date;
+        return datechanged;
+      }
+    </script>
+
+    <script name="all delete">
+      function allclean(){
+        var answer = confirm("ARE U REALLY SURE?");
+        if(answer==true){
+            localStorage.clear();
+        };
+      };
+    </script>
+
+    <script name="type">
+      function showtype(){
+        document.getElementById("date").style.display="";
+        document.getElementById("one").textContent=null;
+        a=document.getElementById("typebutton");
+        a.style.display="";
+        dates=this.id;
+        return dates;
+      }
+    </script>
+
+    <script name="AffichageDate">
+      i=0;
+      while(i<localStorage.length){
+        element = document.createElement("button");
+        element.id=localStorage.key(i);
+        a=datechange(localStorage.key(i));
+        element.innerHTML=a;
+        element.onclick=showtype;
+        // element.addEventListener("click",showtype);
+        lol=document.getElementById("datebutton");
+        lol.appendChild(element);
+        i++;
+      }
+    </script>
+
+    <script name="profbutton">
+      function profbutton(){
+        document.getElementById("profnom").style.display="";
+        lol=document.getElementById("nomDuProf");
+        lol.value=data[0][this.id][0];
+        i=0;
+        // while(i<)
+      }
+    </script>
+
+    <script name="absencebutton">
+      function absence(){
+        document.getElementById("absenceinfo").style.display="";
+        document.getElementById("one").textContent=null;
+        document.getElementById("one").style.display="";
+        i=0;
+        data_string = localStorage[dates];
+        data = JSON.parse(data_string);
+        while(i<Object.keys(data[0]).length){
+          element = document.createElement("button");
+          element.id=i;
+          element.innerHTML=data[0][i][0];
+          element.onclick=profbutton;
+          lol=document.getElementById("one");
+          lol.appendChild(element);
+          i++;
+        }
+      }
+    </script>
+
+    <script name="infopartbutton">
+      function infoparti(){
+        document.getElementById("one").textContent=null;
+        document.getElementById("one").style.display="";
+        i=0;
+        data_string = localStorage[dates];
+        data = JSON.parse(data_string);
+        while(i<Object.keys(data[1]).length){
+          element = document.createElement("button");
+          element.id=i;
+          element.innerHTML=data[1][i][0];
+          // element.onclick=titre1button;
+          lol=document.getElementById("one");
+          lol.appendChild(element);
+          i++;
+        }
+      }
+    </script>
+
+    <!-- <script name="titre1button">
+      function titre1button(){
+        document.getElementById("two").textContent=null;
+        document.getElementById("two").style.display="";
+        a = document.createElement("input");
+        a.value=data[1][this.id][1];
+        // a.innerHTML="lol";
+        lol=document.getElementById("two");
+        lol.appendChild(a);
+        b = document.createElement("p");
+      }
+    </script> -->
+
+    <script name=infogenbutton>
+      function infogen(){
+        document.getElementById("one").textContent=null;
+        document.getElementById("one").style.display="";
+        i=0;
+        data_string = localStorage[dates];
+        data = JSON.parse(data_string);
+        while(i<Object.keys(data[2]).length){
+          element = document.createElement("button");
+          element.id=i;
+          element.innerHTML=data[2][i][0];
+          // element.onclick=titre2button;
+          lol=document.getElementById("one");
+          lol.appendChild(element);
+          i++;
+        }
+      }
+    </script>
+
+    <!-- <script name="titre2button">
+      function titre2button(){
+        document.getElementById("two").textContent=null;
+        document.getElementById("two").style.display="";
+        a = document.createElement("input");
+        a.value=data[2][this.id][1];
+        // a.innerHTML="lol";
+        lol=document.getElementById("two");
+        lol.appendChild(a);
+        b = document.createElement("p");
+      }
+    </script> -->
+  </body>
+</html>
