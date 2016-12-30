@@ -74,7 +74,7 @@
             </section>
           </th>
           <th valign="top">
-            <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
+            <br><textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
           </th>
         </tr>
       </table>
@@ -122,43 +122,56 @@
         }else{
           var month = String(Number(document.infoabsence.month.value));
         };
-      year = String(Number(document.infoabsence.year.value));
-      date = year+month+day;
-      if(localStorage[date]===undefined){
-        data=[[],[],[]];
-        localStorage[date] = JSON.stringify(data);
-      }
-      else {
-        data_string = localStorage[date];
-        data = JSON.parse(data_string);
-      }
-      prof = document.infoabsence.q.value;
-      commentaire = document.infoabsence.moreinfo.value;
-      sousdata = [prof,[],[],commentaire];
-      a=1;
-      while(a<i+1){
-        petlist = [];
-        granlist = [];
-        petlist.push(document.getElementById("premiereHeure"+a).value);
-        granlist.push(document.getElementById("deuxiemeHeure"+a).value);
-        if (granlist[0]!="zero") {
-          if (granlist[0]!=0){
-            sousdata[1].push(petlist[0] + "-" + granlist[0]);
-          }
-          else {
-            sousdata[1].push(petlist[0]);
-          }
+          year = String(Number(document.infoabsence.year.value));
+        if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
+        date = year+month+day;
+        if(document.infoabsence.q.value==""){
+          alert("Mettez le nom du prof");
+          return;
+        }
+        else{
+          var prof = document.infoabsence.q.value;
+        }
+        var commentaire = document.infoabsence.moreinfo.value;
+        if(commentaire==""){
+          commentaire="aucune information supplémentaire";
+        }
+        var sousdata = [prof,[],[],commentaire];
+        var a=1;
+        var x=0;
+        while(a<i+1){
+          if(document.getElementById("nomDuCours"+a).value!=""){
+            sousdata[2].push(document.getElementById("nomDuCours"+a).value);
+            b=document.getElementById("premiereHeure"+a).value;
+            c=document.getElementById("deuxiemeHeure"+a).value;
+            hourdata=[b,c];
+            sousdata[1].push(hourdata);
+            x++;
+          };
+          a++;
+        };
+        if(x==0){
+          alert("mettez au moins un nom de cours");
+          return;
+        }
+        if(localStorage[date]===undefined){
+          data=[[],[],[]];
+          localStorage[date] = JSON.stringify(data);
         }
         else {
-          sousdata[1].push(petlist[0]);
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
         }
-        sousdata[2].push(document.getElementById("nomDuCours"+a).value);
-        // sousdata[3].push(document.getElementById("commentaire"+a).value);
-        a++;
-      };
-      data[0].push(sousdata);
-      localStorage[date] = JSON.stringify(data);
-    });
+        data[0].push(sousdata);
+        localStorage[date] = JSON.stringify(data);
+      });
     </script>
 
     <script name="datajson">

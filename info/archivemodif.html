@@ -41,66 +41,103 @@
 
       <section id="absenceinfo" style="display:none">
         <p style="font-size:25px">Absence</p>
-        <section id="profnom" style="display:none">
-        <label for="nomDuProf">Nom du professeur : </label>
-          <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br>
-          <datalist id="optionsNomDuProf">
-          </datalist>
-        </section>
-        <section id="cours" style="display:none">
-          <section id="lecon1">
-            <select id="premiereHeure1" name="lecon" size="1">
-                <option value="h1" selected>h1</option>
-                <option value="h2">h2</option>
-                <option value="h3">h3</option>
-                <option value="h4">h4</option>
-                <option value="h5">h5</option>
-                <option value="h6">h6</option>
-                <option value="h7">h7</option>
-                <option value="h8">h8</option>
-                <option value="h9">h9</option>
-                <option value="h10">h10</option>
-                <option value="h11">h11</option>
-            </select>
-            <select id="deuxiemeHeure1" name="lecon" size="1">
-                <option value="zero"> </option>
-                <option value="h1">h1</option>
-                <option value="h2" selected>h2</option>
-                <option value="h3">h3</option>
-                <option value="h4">h4</option>
-                <option value="h5">h5</option>
-                <option value="h6">h6</option>
-                <option value="h7">h7</option>
-                <option value="h8">h8</option>
-                <option value="h9">h9</option>
-                <option value="h10">h10</option>
-                <option value="h11">h11</option>
-            </select>
-            <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
-            <datalist id="optionsNomDuCours">
+        <section id="abinfo">
+          <section id="profnom" >
+          <label for="nomDuProf">Nom du professeur : </label>
+            <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br><br>
+            <datalist id="optionsNomDuProf">
             </datalist>
-            <br>
-            <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
           </section>
+          <button type="button" id="plus" >+</button><br><br>
+          <section id="cours">
+            <section id="lecon1">
+              <select id="premiereHeure1" name="lecon" size="1">
+                  <option value="h1" selected>h1</option>
+                  <option value="h2">h2</option>
+                  <option value="h3">h3</option>
+                  <option value="h4">h4</option>
+                  <option value="h5">h5</option>
+                  <option value="h6">h6</option>
+                  <option value="h7">h7</option>
+                  <option value="h8">h8</option>
+                  <option value="h9">h9</option>
+                  <option value="h10">h10</option>
+                  <option value="h11">h11</option>
+              </select>
+              <select id="deuxiemeHeure1" name="lecon" size="1">
+                  <option value="zero"> </option>
+                  <option value="h1">h1</option>
+                  <option value="h2" selected>h2</option>
+                  <option value="h3">h3</option>
+                  <option value="h4">h4</option>
+                  <option value="h5">h5</option>
+                  <option value="h6">h6</option>
+                  <option value="h7">h7</option>
+                  <option value="h8">h8</option>
+                  <option value="h9">h9</option>
+                  <option value="h10">h10</option>
+                  <option value="h11">h11</option>
+              </select>
+              <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
+              <datalist id="optionsNomDuCours">
+              </datalist>
+              <br>
+            </section>
+          </section>
+          <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
         </section>
       </section>
 
       <section id="infopartiinfo" style="display:none">
-
+        <p style="font-size:25px">Information Particulière</p>
+        <section id="parinfo" style="display:none">
+          <section id="datefin1">
+            <label for="day">Date finale de l'affichage : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
+            <p id="jourDeLaSemaine2"></p>
+          </section>
+          Titre : <input name="titre" type="text" placeholder="titre" id="titre1" value="Titre vide" size="30"></textarea><br><br>
+          <textarea name="info" id="info1" placeholder="information" rows="8" cols="40"></textarea>
+        </section>
       </section>
 
       <section id="infogeninfo" style="display:none">
+        <p style="font-size:25px">Information Général</p>
+        <section id="geninfo" style="display:none">
+          <section id="datefin2">
+            <label for="day">Date finale de l'affichage : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day3" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month3" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year3" placeholder="year">
+            <p id="jourDeLaSemaine3"></p>
+          </section>
+          Titre : <input name="titre" type="text" placeholder="titre" id="titre2" value="Titre vide" size="30"></textarea><br><br>
+          <textarea name="info" id="info2" placeholder="information" rows="8" cols="40"></textarea>
+          <form id="form1" runat="server" name="image">
+            select a image : <input type='file' id="image" accept="image/*"><br><br>
+            <img id="showimg" src="#" alt="" height=300px><br><br>
+          </form>
+        </section>
+      </section>
 
+      <section id="buttonmod" style="display:none">
+        <button id="supprimer">supprimer</input>
+        <button id="modifier">modifier</input>
       </section>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous">
+    </script>
+
     <script name="date">
       function datechange(lo){
-        lol=String(lo);
-        year=lol.substr(0,4);
-        month=lol.substring(4,6);
-        date=lol.substring(6,8);
-        datechanged=year+"/"+month+"/"+date;
+        var lol=String(lo);
+        var year=lol.substr(0,4);
+        var month=lol.substring(4,6);
+        var day=lol.substring(6,8);
+        datechanged=year+"/"+month+"/"+day;
         return datechanged;
       }
     </script>
@@ -110,6 +147,7 @@
         var answer = confirm("ARE U REALLY SURE?");
         if(answer==true){
             localStorage.clear();
+            location.reload();
         };
       };
     </script>
@@ -117,24 +155,55 @@
     <script name="type">
       function showtype(){
         document.getElementById("date").style.display="";
+        document.getElementById("absenceinfo").style.display="none";
+        document.getElementById("infopartiinfo").style.display="none";
+        document.getElementById("infogeninfo").style.display="none";
+        document.getElementById("buttonmod").style.display="none";
         document.getElementById("one").textContent=null;
-        a=document.getElementById("typebutton");
+        var a=document.getElementById("typebutton");
         a.style.display="";
-        dates=this.id;
-        return dates;
+        dates=String(this.id);
+        var year=dates.substr(0,4);
+        var month=dates.substring(4,6);
+        var day=dates.substring(6,8);
+        document.getElementById("day").value=day;
+        document.getElementById("year").value=year;
+        document.getElementById("month").value=month;
       }
     </script>
 
     <script name="AffichageDate">
-      i=0;
+      var y=0;
+      while(y<localStorage.length){
+        var x=localStorage.key(y);
+        var data_string = localStorage[x];
+        var data = JSON.parse(data_string);
+        if(data[0]=="" && data[1]=="" && data[2]==""){
+          localStorage.removeItem(x);
+        }
+        y++;
+      }
+      var u=0;
+      var trol=[];
+      while(u<localStorage.length){
+        var r=localStorage.key(u);
+        trol.push(r);
+        u++;
+      }
+      trol.sort(
+        function(a,b){
+          return (a < b ? -1 : 1);
+        }
+      );
+      var i=0;
       while(i<localStorage.length){
-        element = document.createElement("button");
-        element.id=localStorage.key(i);
-        a=datechange(localStorage.key(i));
+        var element = document.createElement("button");
+        var t=trol[i];
+        element.id=t;
+        var a=datechange(t);
         element.innerHTML=a;
         element.onclick=showtype;
-        // element.addEventListener("click",showtype);
-        lol=document.getElementById("datebutton");
+        var lol=document.getElementById("datebutton");
         lol.appendChild(element);
         i++;
       }
@@ -142,28 +211,60 @@
 
     <script name="profbutton">
       function profbutton(){
-        document.getElementById("profnom").style.display="";
-        lol=document.getElementById("nomDuProf");
+        var a=document.getElementById("lecon1"),
+        clone=a.cloneNode(true);
+        document.getElementById("cours").textContent=null;
+        document.getElementById("cours").appendChild(clone);
+        document.getElementById("abinfo").style.display="";
+        document.getElementById("buttonmod").style.display="";
+        var lol=document.getElementById("nomDuProf");
         lol.value=data[0][this.id][0];
-        i=0;
-        // while(i<)
+        thisid=this.id;
+        document.getElementById("premiereHeure1").value=data[0][this.id][1][0][0];
+        document.getElementById("deuxiemeHeure1").value=data[0][this.id][1][0][1];
+        document.getElementById("nomDuCours1").value=data[0][this.id][2][0];
+        var i=0;
+        n=1;
+        while(i+1<Object.keys(data[0][this.id][1]).length){
+          var a=document.getElementById("lecon1"),
+          clone=a.cloneNode(true);
+          n=i+2;
+          var m=i+1;
+          clone.id="lecon"+n;
+          clone.childNodes[1].id="premiereHeure"+n;
+          clone.childNodes[1].nextElementSibling.id="deuxiemeHeure"+n;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.id="nomDuCours"+n;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.value="";
+          var b=document.getElementById("cours");
+          b.appendChild(clone);
+          document.getElementById("premiereHeure"+n).value=data[0][this.id][1][m][0];
+          document.getElementById("deuxiemeHeure"+n).value=data[0][this.id][1][m][1];
+          document.getElementById("nomDuCours"+n).value=data[0][this.id][2][m];
+          i++;
+        }
+        document.getElementById("moreinfo").value=data[0][this.id][3];
       }
     </script>
 
     <script name="absencebutton">
       function absence(){
         document.getElementById("absenceinfo").style.display="";
+        document.getElementById("infopartiinfo").style.display="none";
+        document.getElementById("infogeninfo").style.display="none";
         document.getElementById("one").textContent=null;
+        document.getElementById("abinfo").style.display="none";
+        document.getElementById("buttonmod").style.display="none";
         document.getElementById("one").style.display="";
-        i=0;
-        data_string = localStorage[dates];
+        Y=1;
+        var i=0;
+        var data_string = localStorage[dates];
         data = JSON.parse(data_string);
         while(i<Object.keys(data[0]).length){
-          element = document.createElement("button");
+          var element = document.createElement("button");
           element.id=i;
           element.innerHTML=data[0][i][0];
           element.onclick=profbutton;
-          lol=document.getElementById("one");
+          var lol=document.getElementById("one");
           lol.appendChild(element);
           i++;
         }
@@ -172,66 +273,360 @@
 
     <script name="infopartbutton">
       function infoparti(){
+        document.getElementById("absenceinfo").style.display="none";
+        document.getElementById("infopartiinfo").style.display="";
+        document.getElementById("infogeninfo").style.display="none";
+        document.getElementById("parinfo").style.display="none";
+        document.getElementById("buttonmod").style.display="none";
         document.getElementById("one").textContent=null;
         document.getElementById("one").style.display="";
-        i=0;
-        data_string = localStorage[dates];
-        data = JSON.parse(data_string);
+        Y=2;
+        var i=0;
+        var data_string = localStorage[dates];
+        var data = JSON.parse(data_string);
         while(i<Object.keys(data[1]).length){
-          element = document.createElement("button");
+          var element = document.createElement("button");
           element.id=i;
           element.innerHTML=data[1][i][0];
-          // element.onclick=titre1button;
-          lol=document.getElementById("one");
+          element.onclick=titre1button;
+          var lol=document.getElementById("one");
           lol.appendChild(element);
           i++;
         }
       }
     </script>
 
-    <!-- <script name="titre1button">
+    <script name="titre1button">
       function titre1button(){
-        document.getElementById("two").textContent=null;
-        document.getElementById("two").style.display="";
-        a = document.createElement("input");
-        a.value=data[1][this.id][1];
-        // a.innerHTML="lol";
-        lol=document.getElementById("two");
-        lol.appendChild(a);
-        b = document.createElement("p");
+        document.getElementById("parinfo").style.display="";
+        document.getElementById("buttonmod").style.display="";
+        var data_string = localStorage[dates];
+        data = JSON.parse(data_string);
+        thisid=this.id;
+        var lol=String(data[1][this.id][1]);
+        var year=lol.substr(0,4);
+        var month=lol.substring(4,6);
+        var day=lol.substring(6,8);
+        document.getElementById("day2").value=day;
+        document.getElementById("month2").value=month;
+        document.getElementById("year2").value=year;
+        document.getElementById("titre1").value=data[1][this.id][0];
+        document.getElementById("info1").value=data[1][this.id][2];
       }
-    </script> -->
+    </script>
 
     <script name=infogenbutton>
       function infogen(){
+        document.getElementById("absenceinfo").style.display="none";
+        document.getElementById("infopartiinfo").style.display="none";
+        document.getElementById("infogeninfo").style.display="";
+        document.getElementById("geninfo").style.display="none";
+        document.getElementById("buttonmod").style.display="none";
         document.getElementById("one").textContent=null;
         document.getElementById("one").style.display="";
-        i=0;
-        data_string = localStorage[dates];
-        data = JSON.parse(data_string);
+        Y=3;
+        var i=0;
+        var data_string = localStorage[dates];
+        var data = JSON.parse(data_string);
         while(i<Object.keys(data[2]).length){
-          element = document.createElement("button");
+          var element = document.createElement("button");
           element.id=i;
           element.innerHTML=data[2][i][0];
-          // element.onclick=titre2button;
-          lol=document.getElementById("one");
+          element.onclick=titre2button;
+          var lol=document.getElementById("one");
           lol.appendChild(element);
           i++;
         }
       }
     </script>
 
-    <!-- <script name="titre2button">
+    <script name="titre2button">
       function titre2button(){
-        document.getElementById("two").textContent=null;
-        document.getElementById("two").style.display="";
-        a = document.createElement("input");
-        a.value=data[2][this.id][1];
-        // a.innerHTML="lol";
-        lol=document.getElementById("two");
-        lol.appendChild(a);
-        b = document.createElement("p");
+        document.getElementById("geninfo").style.display="";
+        document.getElementById("buttonmod").style.display="";
+        var data_string = localStorage[dates];
+        data = JSON.parse(data_string);
+        thisid=this.id;
+        var lol=String(data[2][this.id][1]);
+        var year=lol.substr(0,4);
+        var month=lol.substring(4,6);
+        var day=lol.substring(6,8);
+        document.getElementById("day3").value=day;
+        document.getElementById("month3").value=month;
+        document.getElementById("year3").value=year;
+        document.getElementById("titre2").value=data[2][this.id][0];
+        document.getElementById("info2").value=data[2][this.id][2];
+        document.getElementById("image").value=data[2][this.id][3];
       }
-    </script> -->
+    </script>
+
+    <script name="mod">
+      document.getElementById("modifier").addEventListener("click",function(){
+        if(Y==1){
+          if(document.getElementById("day").value<10){
+            var day = "0"+String(Number(document.getElementById("day").value));
+          }else{
+            var day = String(Number(document.getElementById("day").value));
+          };
+          if(document.getElementById("month").value<10){
+            var month = "0"+String(Number(document.getElementById("month").value));
+          }else{
+            var month = String(Number(document.getElementById("month").value));
+          };
+            year = String(Number(document.getElementById("year").value));
+          if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+            alert("Mettez les bonnes dates!!");
+            return;
+          }
+          if(year<1000){
+            alert("Mettez l'année correct");
+            return;
+          }
+          var date = year+month+day;
+          if(document.getElementById("nomDuProf").value==""){
+            alert("Mettez le nom du prof");
+            return;
+          }
+          else{
+            var prof = document.getElementById("nomDuProf").value;
+          }
+          var commentaire = document.getElementById("moreinfo").value;
+          if(commentaire==""){
+            commentaire="aucune information supplémentaire";
+          }
+          var sousdata = [prof,[],[],commentaire];
+          var a=1;
+          var x=0;
+          while(a<n+1){
+            if(document.getElementById("nomDuCours"+a).value!=""){
+              var b=document.getElementById("premiereHeure"+a).value;
+              var c=document.getElementById("deuxiemeHeure"+a).value;
+              hourdata=[b,c];
+              sousdata[1].push(hourdata);
+              sousdata[2].push(document.getElementById("nomDuCours"+a).value);
+              x++;
+            }
+            a++;
+          };
+          if(x==0){
+            alert("mettez au moins un nom de cours");
+            return;
+          }
+          if(localStorage[date]===undefined){
+            data=[[],[],[]];
+            localStorage[date] = JSON.stringify(data);
+          }
+          else {
+            data_string = localStorage[date];
+            data = JSON.parse(data_string);
+          }
+          data[0].push(sousdata);
+          localStorage[date] = JSON.stringify(data);
+          var data_string = localStorage[dates];
+          var data = JSON.parse(data_string);
+          data[0].splice(thisid,1);
+          localStorage[dates] = JSON.stringify(data);
+        };
+        if(Y==2){
+            if(document.getElementById("day").value<10){
+              var day = "0"+String(Number(document.getElementById("day").value));
+            }else{
+              var day = String(Number(document.getElementById("day").value));
+            };
+            if(document.getElementById("month").value<10){
+              var month = "0"+String(Number(document.getElementById("month").value));
+            }else{
+              var month = String(Number(document.getElementById("month").value));
+            };
+            var year = String(Number(document.getElementById("year").value));
+            if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+              alert("Mettez les bonnes dates!!");
+              return;
+            }
+            if(year<1000){
+              alert("Mettez l'année correct");
+              return;
+            }
+            var date = year+month+day;
+            if(document.getElementById("day2").value<10){
+              var day2 = "0"+String(Number(document.getElementById("day2").value));
+            }else{
+              var day2 = String(Number(document.getElementById("day2").value));
+            };
+            if(document.getElementById("month2").value<10){
+              var month2 = "0"+String(Number(document.getElementById("month2").value));
+            }else{
+              var month2 = String(Number(document.getElementById("month2").value));
+            };
+              year2 = String(Number(document.getElementById("year2").value));
+            if(day2=="00"||month2=="00"||year2=="0"||day2==""||month2==""||year2==""||day2.match(/[^0-9]+/)||month2.match(/[^0-9]+/)||year2.match(/[^0-9]+/)){
+              alert("Mettez les bonnes dates!!");
+              return;
+            }
+            if(year2<1000){
+              alert("Mettez l'année correct");
+              return;
+            }
+            var date2 = year2+month2+day2;
+            if(document.getElementById("titre1").value==""){
+              alert("Mettez le titre++");
+              return;
+            }
+            else{
+              var titre=document.getElementById("titre1").value;
+            }
+            if(localStorage[date]===undefined){
+              data=[[],[],[]];
+              localStorage[date] = JSON.stringify(data);
+            }
+            else {
+              data_string = localStorage[date];
+              data = JSON.parse(data_string);
+            }
+            var commentaire = document.getElementById("info1").value;
+            if(commentaire==""){
+              commentaire="aucune information";
+            }
+            var sousdata=[titre,date2,commentaire];
+            data[1].push(sousdata);
+            localStorage[date] = JSON.stringify(data);
+            var data_string = localStorage[dates];
+            var data = JSON.parse(data_string);
+            data[1].splice(thisid,1);
+            localStorage[dates] = JSON.stringify(data);
+          };
+        if(Y==3){
+          if(document.getElementById("day").value<10){
+            var day = "0"+String(Number(document.getElementById("day").value));
+          }else{
+            var day = String(Number(document.getElementById("day").value));
+          };
+          if(document.getElementById("month").value<10){
+            var month = "0"+String(Number(document.getElementById("month").value));
+          }else{
+            var month = String(Number(document.getElementById("month").value));
+          };
+          var year = String(Number(document.getElementById("year").value));
+          if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+            alert("Mettez les bonnes dates!!");
+            return;
+          }
+          if(year<1000){
+            alert("Mettez l'année correct");
+            return;
+          }
+          var date = year+month+day;
+          if(document.getElementById("day3").value<10){
+            var day3 = "0"+String(Number(document.getElementById("day3").value));
+          }else{
+            var day3 = String(Number(document.getElementById("day3").value));
+          };
+          if(document.getElementById("month3").value<10){
+            var month3 = "0"+String(Number(document.getElementById("month3").value));
+          }else{
+            var month3 = String(Number(document.getElementById("month3").value));
+          };
+            year3 = String(Number(document.getElementById("year3").value));
+          if(day3=="00"||month3=="00"||year3=="0"||day3==""||month3==""||year3==""||day3.match(/[^0-9]+/)||month3.match(/[^0-9]+/)||year3.match(/[^0-9]+/)){
+            alert("Mettez les bonnes dates!!");
+            return;
+          }
+          if(year3<1000){
+            alert("Mettez l'année correct");
+            return;
+          }
+          var date3 = year3+month3+day3;
+          if(document.getElementById("titre2").value==""){
+            alert("Mettey le titre!!");
+            return;
+          }
+          else{
+            var titre=document.getElementById("titre2").value;
+          }
+          if(localStorage[date]===undefined){
+            data=[[],[],[]];
+            localStorage[date] = JSON.stringify(data);
+          }
+          else {
+            data_string = localStorage[date];
+            data = JSON.parse(data_string);
+          }
+          var commentaire = document.getElementById("info2").value;
+          if(commentaire==""){
+            commentaire="aucune information";
+          }
+          var image = document.getElementById("image").value;
+          var sousdata=[titre,date3,commentaire,image];
+          data[2].push(sousdata);
+          localStorage[date] = JSON.stringify(data);
+          var data_string = localStorage[dates];
+          var data = JSON.parse(data_string);
+          data[2].splice(thisid,1);
+          localStorage[dates] = JSON.stringify(data);
+        }
+        location.reload();
+      });
+    </script>
+
+    <script name="supprimer">
+      document.getElementById("supprimer").addEventListener("click",function(){
+          if(document.getElementById("day").value<10){
+            var day = "0"+String(Number(document.getElementById("day").value));
+          }else{
+            var day = String(Number(document.getElementById("day").value));
+          };
+          if(document.getElementById("month").value<10){
+            var month = "0"+String(Number(document.getElementById("month").value));
+          }else{
+            var month = String(Number(document.getElementById("month").value));
+          };
+          var year = String(Number(document.getElementById("year").value));
+          var date = year+month+day;
+          data_string = localStorage[date];
+          var data = JSON.parse(data_string);
+          data[Y-1].splice(thisid,1);
+          localStorage[date] = JSON.stringify(data);
+          location.reload();
+        });
+    </script>
+
+    <script name="button plus">
+      document.getElementById("plus").addEventListener("click",function(){
+        if(n<11){
+          n++;
+          var a=document.getElementById("lecon1"),
+          clone=a.cloneNode(true);
+          clone.id="lecon"+n;
+          clone.childNodes[1].id="premiereHeure"+n;
+          clone.childNodes[1].nextElementSibling.id="deuxiemeHeure"+n;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.id="nomDuCours"+n;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.value="";
+          var b=document.getElementById("cours");
+          b.appendChild(clone);
+        };
+      });
+      // for(n=1;n<i+1;n++){
+      //   var leselements = document.getElementById("cours");
+      //   leselements.addEventListener("change", function(e){
+      //     var premih = e.target.selectedIndex;
+      //     e.target.nextElementSibling.selectedIndex=premih+2;
+      //   });
+      // };
+    </script>
+
+    <script name="image">
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#showimg').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      $("#image").change(function(){
+        readURL(this);
+      });
+    </script>
   </body>
 </html>

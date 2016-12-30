@@ -25,12 +25,19 @@
             <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
             <p id="jourDeLaSemaine"></p>
           </section>
+          <section id="datefin">
+            <label for="day">Date finale de l'affichage : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
+            <p id="jourDeLaSemaine2"></p>
+          </section>
           <section>
             Titre : <input name="titre" type="text" placeholder="titre" value="Titre vide" size="30"></textarea><br><br>
             <textarea name="info" placeholder="information" rows="8" cols="40"></textarea>
           </section><br>
           <form id="form1" runat="server" name="image">
-            select a image :<input type='file' id="image" accept="image/*"><br><br>
+            select a image : <input type='file' id="image" accept="image/*"><br><br>
             <img id="showimg" src="#" alt="" height=500px><br><br>
           </form>
         </th>
@@ -53,7 +60,42 @@
           var month = String(Number(document.infogen.month.value));
         };
         year = String(Number(document.infogen.year.value));
+        if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
         date = year+month+day;
+        if(document.infogen.day2.value<10){
+          var day2 = "0"+String(Number(document.infogen.day2.value));
+        }else{
+          var day2 = String(Number(document.infogen.day2.value));
+        };
+        if(document.infogen.month2.value<10){
+          var month2 = "0"+String(Number(document.infogen.month2.value));
+        }else{
+          var month2 = String(Number(document.infogen.month2.value));
+        };
+        year2 = String(Number(document.infogen.year2.value));
+        if(day2=="00"||month2=="00"||year2=="0"||day2==""||month2==""||year2==""||day2.match(/[^0-9]+/)||month2.match(/[^0-9]+/)||year2.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
+        var date2 = year2+month2+day2;
+        if(document.infogen.titre.value==""){
+          alert("Mettez le titre!!");
+          return;
+        }
+        else{
+          titre=document.infogen.titre.value;
+        }
         if(localStorage[date]===undefined){
           data=[[],[],[]];
           localStorage[date] = JSON.stringify(data);
@@ -62,10 +104,12 @@
           data_string = localStorage[date];
           data = JSON.parse(data_string);
         }
-        titre=document.infogen.titre.value;
         commentaire = document.infogen.info.value;
+        if(commentaire==""){
+          commentaire="aucune information";
+        }
         image = document.infogen.image.value;
-        sousdata=[titre,commentaire,image];
+        sousdata=[titre,date2,commentaire,image];
         data[2].push(sousdata);
         localStorage[date] = JSON.stringify(data);
       });
@@ -120,6 +164,56 @@
     		this.select();
     	});
     </script>
+
+    <script name="datejour">
+      var d = new Date(),
+          listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+          listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+          day = document.getElementById("day2"),
+          month = document.getElementById("month2"),
+          year = document.getElementById("year2");
+      document.getElementById("jourDeLaSemaine2").innerHTML=listeJours[d.getDay()+1]+", "+(d.getDate()+1)+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+      day.value=d.getDate()+1;
+      if(day.value<10) {
+        day.value="0"+day.value;
+      };
+      month.value=d.getMonth()+1;
+      if(month.value<10) {
+        month.value="0"+month.value;
+      };
+      year.value=d.getFullYear();
+      day.addEventListener("keyup", function() {
+        if((day.value>3 || day.value.length==2) && day.value<32){
+          month.focus();
+        };
+      });
+      day.addEventListener("blur", function() {
+        if(day.value.length==1) {
+          day.value="0"+day.value;
+        };
+      });
+      month.addEventListener("keypress", function() {
+        month.addEventListener("keyup", function() {
+          if((month.value>1 || month.value.length==2) && month.value<13 ){
+            year.focus();
+          };
+        });
+      });
+      month.addEventListener("blur", function() {
+        if(month.value.length==1) {
+          month.value="0"+month.value;
+        };
+      });
+      $("input").keyup( function() {
+        d.setDate(day.value);
+        d.setFullYear(year.value);
+        d.setMonth(month.value-1);
+        document.getElementById("jourDeLaSemaine2").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+      });
+      $("input").focus(function() {
+        this.select();
+      });
+  </script>
 
     <script name="image">
       function readURL(input) {

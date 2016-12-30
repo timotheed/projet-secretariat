@@ -26,7 +26,7 @@ body {
 #div2 {
   float: right;
   width:40%;
-  height:600px;
+  height:1000px;
   background-image: linear-gradient(white,grey);
   text-align: center;
 }
@@ -42,6 +42,10 @@ p {
   /*box-shadow: 6px 8px 4px gray;*/
 }
 
+#jourDeLaSemaine {
+  font-size:initial;
+}
+
 button {
   margin: 30px auto;
   padding: 2px;
@@ -50,6 +54,16 @@ button {
   background-image: linear-gradient(red , black );
   border-radius: 30px;
   box-shadow: 6px 8px 4px gray;
+}
+
+#plus {
+  padding: 1px;
+  margin: 5px;
+  color: initial;
+  font-size: initial;
+  background-image: initial;
+  border-radius: 10px;
+  box-shadow: initial;
 }
 
 #return {
