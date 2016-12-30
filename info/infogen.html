@@ -39,6 +39,7 @@
           <form id="form1" runat="server" name="image">
             select a image : <input type='file' id="image" accept="image/*"><br><br>
             <img id="showimg" src="#" alt="" height=500px><br><br>
+            <div id="bg"></div>
           </form>
         </th>
       </table>
@@ -108,8 +109,7 @@
         if(commentaire==""){
           commentaire="aucune information";
         }
-        image = document.infogen.image.value;
-        sousdata=[titre,date2,commentaire,image];
+        sousdata=[titre,date2,commentaire,dataUrl];
         data[2].push(sousdata);
         localStorage[date] = JSON.stringify(data);
       });
@@ -216,19 +216,17 @@
   </script>
 
     <script name="image">
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#showimg').attr('src', e.target.result);
-          }
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
-      $("#image").change(function(){
-        readURL(this);
-      });
-    </script>
+      var obj1 = document.getElementById("image");
 
+      obj1.addEventListener("change", function(evt){
+          var file = evt.target.files;
+          var reader = new FileReader();
+        reader.readAsDataURL(file[0]);
+        reader.onload = function(){
+          dataUrl = reader.result;
+          document.getElementById("showimg").src=dataUrl;
+        }
+      },false);
+      </script>
   </body>
 </html>

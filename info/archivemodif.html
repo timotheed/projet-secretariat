@@ -118,6 +118,7 @@
           <form id="form1" runat="server" name="image">
             select a image : <input type='file' id="image" accept="image/*"><br><br>
             <img id="showimg" src="#" alt="" height=300px><br><br>
+            <div id="bg"></div>
           </form>
         </section>
       </section>
@@ -356,7 +357,7 @@
         document.getElementById("year3").value=year;
         document.getElementById("titre2").value=data[2][this.id][0];
         document.getElementById("info2").value=data[2][this.id][2];
-        document.getElementById("image").value=data[2][this.id][3];
+        document.getElementById("showimg").src=data[2][this.id][3];
       }
     </script>
 
@@ -555,8 +556,7 @@
           if(commentaire==""){
             commentaire="aucune information";
           }
-          var image = document.getElementById("image").value;
-          var sousdata=[titre,date3,commentaire,image];
+          var sousdata=[titre,date3,commentaire,dataUrl];
           data[2].push(sousdata);
           localStorage[date] = JSON.stringify(data);
           var data_string = localStorage[dates];
@@ -615,18 +615,17 @@
     </script>
 
     <script name="image">
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#showimg').attr('src', e.target.result);
-          }
-          reader.readAsDataURL(input.files[0]);
+      var obj1 = document.getElementById("image");
+
+      obj1.addEventListener("change", function(evt){
+          var file = evt.target.files;
+          var reader = new FileReader();
+        reader.readAsDataURL(file[0]);
+        reader.onload = function(){
+          dataUrl = reader.result;
+          document.getElementById("showimg").src=dataUrl;
         }
-      }
-      $("#image").change(function(){
-        readURL(this);
-      });
-    </script>
+      },false);
+      </script>
   </body>
 </html>
