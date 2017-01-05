@@ -358,6 +358,7 @@
         document.getElementById("titre2").value=data[2][this.id][0];
         document.getElementById("info2").value=data[2][this.id][2];
         document.getElementById("showimg").src=data[2][this.id][3];
+        dataUrl=data[2][this.id][3];
       }
     </script>
 
@@ -553,6 +554,9 @@
             data = JSON.parse(data_string);
           }
           var commentaire = document.getElementById("info2").value;
+          if(commentaire==""){
+            commentaire="aucune information";
+          }
           if(commentaire==""){
             commentaire="aucune information";
           }
