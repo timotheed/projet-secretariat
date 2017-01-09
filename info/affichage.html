@@ -92,7 +92,7 @@
     <img id="batiments" src="http://www.sismondi.ch/portal_css/Sunburst%20Theme/fond.gif" style="position:absolute;z-index:4;" />
     <img id ="logo" src="http://www.sismondi.ch/logo.jpg" style="position:absolute;z-index:2;" />
     <div id="clock"></div>
-    <img id="trump" src="trumpClock.jpg"/>
+    <img id="trump" src="chat.jpg"/>
     <div id="carrousel">
     <ul id="carrouselListe" style="list-style-type:none"></ul>
 
@@ -183,11 +183,13 @@
       		};
       		if (hugelist[1]!=""){
       			var listinfoparti=hugelist[1];
-      			// il faut encore faire la fonction pour info parti
+            	ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,0,1);
+
       		};
       		if (hugelist[2]!=""){
       			var listinfogen=hugelist[2];
-      			// il faut encore faire la fonction pour info gen
+            ajouterInfoGen(ajdJour,ajdMois,ajdAnnee,0,1);
+
       		};
       	};
       	n++;
@@ -195,7 +197,39 @@
       };
 
 
+/////////////////////////////////////////////////////////////
 
+  function ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,i,nombre){
+    	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'part"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
+      while(i<listinfoparti.length){
+        	$('#jour'+ajdMois+ajdJour+nombre+'part').append('<div class="prof" id="comment'+ajdMois+ajdJour+i+'">'+listinfoparti[i][0]+'</span><br/><span class="message">'+listinfoparti[i][2]+'</span></div>');
+          var Div1 = document.querySelector('#jour'+ajdMois+ajdJour+nombre+'part');
+
+          	if (Div1.offsetHeight < Div1.scrollHeight){
+              var element = document.querySelector('#comment'+ajdMois+ajdJour+i);
+        			element.parentNode.removeChild(element);
+        			nombre++;
+        			ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,i,nombre);
+        			return;
+            }
+            else{
+              };
+              i++;
+};
+      return;
+  };
+
+
+  function ajouterInfoGen(ajdJour,ajdMois,ajdAnnee,i,nombre){
+    while(i<listinfogen.length){
+      $("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'gen"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
+      $('#jour'+ajdMois+ajdJour+nombre+'gen').append('<div id="comment"><span class="prof">'+listinfogen[i][0]+'</span><br/><span class="message">'+listinfogen[i][2]+'</span><br/><img src="'+listinfogen[i][3]+'"></div>');
+      i++;
+      nombre++;
+      };
+  };
+
+/////////////////////////////////////////////////////////////
       function ajouterLI(ajdJour,ajdMois,ajdAnnee,number,i){
 
       	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+number+'"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
@@ -239,3 +273,4 @@
       refresh();
     </script>
 </body>
+
