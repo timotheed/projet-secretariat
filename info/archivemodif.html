@@ -471,7 +471,7 @@
             }
             var date2 = year2+month2+day2;
             if(document.getElementById("titre1").value==""){
-              alert("Mettez le titre++");
+              alert("Mettez le titre!!");
               return;
             }
             else{
@@ -487,7 +487,8 @@
             }
             var commentaire = document.getElementById("info1").value;
             if(commentaire==""){
-              commentaire="aucune information";
+              alert("Mettez une information!!")
+              return;
             }
             var sousdata=[titre,date2,commentaire];
             data[1].push(sousdata);
@@ -555,10 +556,8 @@
           }
           var commentaire = document.getElementById("info2").value;
           if(commentaire==""){
-            commentaire="aucune information";
-          }
-          if(commentaire==""){
-            commentaire="aucune information";
+            alert("Mettez une information!!")
+            return;
           }
           var sousdata=[titre,date3,commentaire,dataUrl];
           data[2].push(sousdata);

@@ -111,10 +111,8 @@
         }
         commentaire = document.infogen.info.value;
         if(commentaire==""){
-          commentaire="aucune information";
-        }
-        if(dataUrl=""){
-          dataUrl="";
+          alert("Mettez une information!!")
+          return;
         }
         sousdata=[titre,date2,commentaire,dataUrl];
         data[2].push(sousdata);
@@ -224,12 +222,12 @@
 
     <script name="image">
       var obj1 = document.getElementById("image");
-
+      dataUrl="";
       obj1.addEventListener("change", function(evt){
           var file = evt.target.files;
           var reader = new FileReader();
-        reader.readAsDataURL(file[0]);
-        reader.onload = function(){
+          reader.readAsDataURL(file[0]);
+          reader.onload = function(){
           dataUrl = reader.result;
           document.getElementById("showimg").src=dataUrl;
         }

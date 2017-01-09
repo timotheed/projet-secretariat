@@ -107,7 +107,8 @@
         }
         var commentaire = document.infoparti.info.value;
         if(commentaire==""){
-          commentaire="aucune information";
+          alert("Mettez une information!!")
+          return;
         }
         var sousdata=[titre,date2,commentaire];
         data[1].push(sousdata);
