@@ -191,13 +191,24 @@
             ajouterInfoGen(ajdJour,ajdMois,ajdAnnee,0,1);
 
       		};
-      	};
+        /*  if (hugelist[0]=="" && hugelist[1]=="" && hugelist[0]==""){
+            journeeDeprimante(ajdJour,ajdMois,ajdAnnee);
+          };*/
+      	}
+        else{
+            journeeDeprimante(ajdJour,ajdMois,ajdAnnee,1);
+            n=3;
+        };
       	n++;
       	ajd.setDate(ajd.getDate()+1);
       };
 
 
 /////////////////////////////////////////////////////////////
+  function journeeDeprimante(ajdJour,ajdMois,ajdAnnee,nombre){
+    $("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
+  return;
+};
 
   function ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,i,nombre){
     	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'part"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
@@ -273,4 +284,3 @@
       refresh();
     </script>
 </body>
-
