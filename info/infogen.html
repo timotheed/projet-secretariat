@@ -23,20 +23,21 @@
             <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
             <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
             <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
-            <p id="jourDeLaSemaine"></p>
+            <p id="jourDeLaSemaine" style="color:blue;"></p>
           </section>
           <section id="datefin">
             <label for="day">Date finale de l'affichage : </label>
             <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
             <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
             <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
-            <p id="jourDeLaSemaine2"></p>
+            <p id="jourDeLaSemaine2" style="color:blue;"></p>
           </section>
           <section>
             Titre : <input name="titre" type="text" placeholder="titre" value="Titre vide" size="30"></textarea><br><br>
             <textarea name="info" placeholder="information" rows="8" cols="40"></textarea>
           </section><br>
           <form id="form1" runat="server" name="image">
+            <p style="font-weight: lighter; color:red;">!!mettez une image dans le dossier image ou chosissez une image qui est déjà dans le dossier image!!</p>
             select a image : <input type='file' id="image" accept="image/*"><br><br>
             <img id="showimg" src="#" alt="" height=500px><br><br>
             <div id="bg"></div>
@@ -101,6 +102,15 @@
           alert("Mettez la bonne date finale!!")
           return;
         }
+        commentaire = document.infogen.info.value;
+        if(commentaire=="" && images==""){
+          alert("Mettez une information ou une image!!")
+          return;
+        }
+        newimage="";
+        if(images!=""){
+          newimage= "../image/"+images;
+        }
         if(localStorage[date]===undefined){
           data=[[],[],[]];
           localStorage[date] = JSON.stringify(data);
@@ -109,12 +119,8 @@
           data_string = localStorage[date];
           data = JSON.parse(data_string);
         }
-        commentaire = document.infogen.info.value;
-        if(commentaire==""){
-          alert("Mettez une information!!")
-          return;
-        }
-        sousdata=[titre,date2,commentaire,dataUrl];
+
+        sousdata=[titre,date2,commentaire,newimage];
         data[2].push(sousdata);
         localStorage[date] = JSON.stringify(data);
       });
@@ -223,13 +229,15 @@
     <script name="image">
       var obj1 = document.getElementById("image");
       dataUrl="";
+      images="";
       obj1.addEventListener("change", function(evt){
           var file = evt.target.files;
           var reader = new FileReader();
           reader.readAsDataURL(file[0]);
           reader.onload = function(){
-          dataUrl = reader.result;
-          document.getElementById("showimg").src=dataUrl;
+            images=document.getElementById("image").value;
+            dataUrl = reader.result;
+            document.getElementById("showimg").src=dataUrl;
         }
       },false);
       </script>

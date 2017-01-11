@@ -144,66 +144,54 @@
       }
     </script>
 
-<script name="archive" >
-function download(filename, text) {
-var pom = document.createElement('a');
-pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-pom.setAttribute('download', filename);
-
-pom.style.display = 'none';
-document.body.appendChild(pom);
-
-pom.click();
-
-document.body.removeChild(pom);
-}
-
-
-    function archiver(){
-
-        var ajd = new Date();
-        if(ajd.getDate()<10){
-          var ajdJour = "0"+String(ajd.getDate());
-        }else{
-          var ajdJour = String(ajd.getDate());
-        };
-        if(ajd.getMonth()<10){
-          var ajdMois = "0"+String(ajd.getMonth()+1);
-        }else{
-          var ajdMois = String(ajd.getMonth()+1);
-        };
-        var ajdAnnee = String(ajd.getFullYear());
-        var ajddate = ajdAnnee + ajdMois + ajdJour;
-        var SaveName = 'Savegarde_du_' + ajdJour + '/' + ajdMois + '/' + ajdAnnee + '.txt';
-
-
-        var z =0;
-        var trip=[];
-        if (localStorage.length!=0){
-        while(z<localStorage.length){
-        var q = localStorage.key(z);
-        var maliste = localStorage[q];
-        var donnees = JSON.parse(maliste);
-        var donsansimg = donnees[0] + donnees[1]
-        trip.push(donnees);
-        z++;
-
-}
-        var belleliste =[];
-        var i=0;
-        var r=0;
-        var v=0;
-        var w=0;
+    <script name="archive" >
+      function download(filename, text) {
+      var pom = document.createElement('a');
+      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      pom.setAttribute('download', filename);
+      pom.style.display = 'none';
+      document.body.appendChild(pom);
+      pom.click();
+      document.body.removeChild(pom);
+      }
+          function archiver(){
+              var ajd = new Date();
+              if(ajd.getDate()<10){
+                var ajdJour = "0"+String(ajd.getDate());
+              }else{
+                var ajdJour = String(ajd.getDate());
+              };
+              if(ajd.getMonth()<10){
+                var ajdMois = "0"+String(ajd.getMonth()+1);
+              }else{
+                var ajdMois = String(ajd.getMonth()+1);
+              };
+              var ajdAnnee = String(ajd.getFullYear());
+              var ajddate = ajdAnnee + ajdMois + ajdJour;
+              var SaveName = 'Savegarde_du_' + ajdJour + '/' + ajdMois + '/' + ajdAnnee + '.txt';
+              var z =0;
+              var trip=[];
+              if (localStorage.length!=0){
+              while(z<localStorage.length){
+              var q = localStorage.key(z);
+              var maliste = localStorage[q];
+              var donnees = JSON.parse(maliste);
+              var donsansimg = donnees[0] + donnees[1]
+              trip.push(donnees);
+              z++;
 
       }
-      var SaveText = trip;
-        alert(SaveText);
+              var belleliste =[];
+              var i=0;
+              var r=0;
+              var v=0;
+              var w=0;
 
-
-
-      download(SaveName,SaveText);
-  };
-</script>
+            }
+            var SaveText = trip;
+            download(SaveName,SaveText);
+        };
+    </script>
 
     <script name="all delete">
       function allclean(){
@@ -421,6 +409,7 @@ document.body.removeChild(pom);
         document.getElementById("info2").value=data[2][this.id][2];
         document.getElementById("showimg").src=data[2][this.id][3];
         dataUrl=data[2][this.id][3];
+        images=dataUrl;
       }
     </script>
 
@@ -608,6 +597,15 @@ document.body.removeChild(pom);
           else{
             var titre=document.getElementById("titre2").value;
           }
+          var commentaire = document.getElementById("info2").value;
+          if(commentaire=="" && images==""){
+            alert("Mettez une information ou une image!!")
+            return;
+          }
+          newimage="";
+          if(images!=""){
+            newimage= "../image/"+images;
+          }
           if(localStorage[date]===undefined){
             data=[[],[],[]];
             localStorage[date] = JSON.stringify(data);
@@ -616,12 +614,7 @@ document.body.removeChild(pom);
             data_string = localStorage[date];
             data = JSON.parse(data_string);
           }
-          var commentaire = document.getElementById("info2").value;
-          if(commentaire==""){
-            alert("Mettez une information!!")
-            return;
-          }
-          var sousdata=[titre,date3,commentaire,dataUrl];
+          var sousdata=[titre,date3,commentaire,newimage];
           data[2].push(sousdata);
           localStorage[date] = JSON.stringify(data);
           var data_string = localStorage[dates];
@@ -681,13 +674,14 @@ document.body.removeChild(pom);
 
     <script name="image">
       var obj1 = document.getElementById("image");
-
+      images="";
       obj1.addEventListener("change", function(evt){
           var file = evt.target.files;
           var reader = new FileReader();
         reader.readAsDataURL(file[0]);
         reader.onload = function(){
           dataUrl = reader.result;
+          images=document.getElementById("image").value;
           document.getElementById("showimg").src=dataUrl;
         }
       },false);

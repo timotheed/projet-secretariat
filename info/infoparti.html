@@ -23,14 +23,14 @@
             <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
             <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
             <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
-            <p id="jourDeLaSemaine"></p>
+            <p id="jourDeLaSemaine" style="color:blue;"></p>
           </section>
           <section id="datefin">
             <label for="day">Date finale de l'affichage : </label>
             <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
             <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
             <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
-            <p id="jourDeLaSemaine2"></p>
+            <p id="jourDeLaSemaine2" style="color:blue;"></p>
           </section>
           <section>
             Titre : <input name="titre" type="text" placeholder="titre" id="titre" value="Titre vide" size="30"></textarea><br><br>
@@ -97,6 +97,11 @@
           alert("Mettez la bonne date finale!!")
           return;
         }
+        var commentaire = document.infoparti.info.value;
+        if(commentaire==""){
+          alert("Mettez une information!!")
+          return;
+        }
         if(localStorage[date]===undefined){
           data=[[],[],[]];
           localStorage[date] = JSON.stringify(data);
@@ -104,11 +109,6 @@
         else {
           data_string = localStorage[date];
           data = JSON.parse(data_string);
-        }
-        var commentaire = document.infoparti.info.value;
-        if(commentaire==""){
-          alert("Mettez une information!!")
-          return;
         }
         var sousdata=[titre,date2,commentaire];
         data[1].push(sousdata);
