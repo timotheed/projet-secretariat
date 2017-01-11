@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf8">
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <title>Absence</title>
+    <link rel="shot cut icon" href="subaru.ico">
+    <link rel="stylesheet" href="absence.css">
+  </head>
+
+  <body>
+    <header>
+      <a href="acceuil.html" id="return"> retour </a>
+      <p id="header"><strong> Absence </strong></p>
+    </header>
+
+    <form style="background: white; text-align:center;" name="infoabsence" autocomplete="off">
+      <button id="confirmer" type="submit" style="border-radius: 5px;">confirmer</button>
+      <button type="reset" style="border-radius: 5px;">reset</button>
+      <table style="width:100%">
+        <tr>
+          <th><br>
+            <section id="prof">
+            <label for="nomDuProf">Nom du professeur : </label>
+              <input list="optionsNomDuProf" id='nomDuProf' placeholder="NOM DU PROF" name="q" /><br>
+              <datalist id="optionsNomDuProf">
+              </datalist>
+          	  <br>
+			</section>
+			<section id="date">
+			<label for="day">Date de l'absence : </label>
+              <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="JJ">
+              <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="MM">
+              <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="AAAA">
+			  <p id="jourDeLaSemaine" style="color:blue;"></p>
+            </section><br>
+
+            <button type="button" id="plus" style="border-radius: 5px;" >+</button>
+            <section id="cours">
+              <section id="lecon1">
+                <select id="premiereHeure1" name="lecon" size="1">
+                    <option value="H1" selected>H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
+                 </select>
+                 <select id="deuxiemeHeure1" name="lecon" size="1">
+                    <option value=""> </option>
+                    <option value="H1">H1</option>
+                    <option value="H2" selected >H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
+                 </select>
+			Nom du cours : <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
+     		     <datalist id="optionsNomDuCours">
+      		     </datalist>
+                  <br>
+              </section>
+            </section>
+          </th>
+          <th valign="top">
+            <br><textarea name="moreinfo" placeholder="informations (facultatif)" cols="40" rows="5" id="moreinfo"></textarea>
+          </th>
+        </tr>
+      </table>
+    </form>
+
+    <p id='resultat'></p>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+    <script name="button plus">
+      var i=1;
+      document.getElementById("plus").addEventListener("click",function(){
+        if(i<11){
+          i++;
+          var a=document.getElementById("lecon1"),
+          clone=a.cloneNode(true);
+          clone.id="lecon"+i;
+          clone.childNodes[1].id="premiereHeure"+i;
+          clone.childNodes[1].nextElementSibling.id="deuxiemeHeure"+i;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.id="nomDuCours"+i;
+          clone.childNodes[1].nextElementSibling.nextElementSibling.value="";
+          var b=document.getElementById("cours");
+          b.appendChild(clone);
+        };
+        return i;
+      });
+      for(n=1;n<i+1;n++){
+        var leselements = document.getElementById("cours");
+        leselements.addEventListener("change", function(e){
+          var premih = e.target.selectedIndex;
+          e.target.nextElementSibling.selectedIndex=premih+2;
+        });
+      };
+    </script>
+
+    <script name="submit">
+      document.getElementById("confirmer").addEventListener("click",function(){
+        if(document.infoabsence.day.value<10){
+          var day = "0"+String(Number(document.infoabsence.day.value));
+        }else{
+          var day = String(Number(document.infoabsence.day.value));
+        };
+        if(document.infoabsence.month.value<10){
+          var month = "0"+String(Number(document.infoabsence.month.value));
+        }else{
+          var month = String(Number(document.infoabsence.month.value));
+        };
+          year = String(Number(document.infoabsence.year.value));
+        if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
+        date = year+month+day;
+        if(document.infoabsence.q.value==""){
+          alert("Mettez le nom du prof");
+          return;
+        }
+        else{
+          var prof = document.infoabsence.q.value;
+        }
+        var commentaire = document.infoabsence.moreinfo.value;
+        var sousdata = [prof,[],[],commentaire];
+        var a=1;
+        var x=0;
+        while(a<i+1){
+          if(document.getElementById("nomDuCours"+a).value!=""){
+            sousdata[2].push(document.getElementById("nomDuCours"+a).value);
+            b=document.getElementById("premiereHeure"+a).value;
+            c=document.getElementById("deuxiemeHeure"+a).value;
+            hourdata=[b,c];
+            sousdata[1].push(hourdata);
+            x++;
+          };
+          a++;
+        };
+        if(x==0){
+          alert("mettez au moins un nom de cours");
+          return;
+        }
+        if(localStorage[date]===undefined){
+          data=[[],[],[]];
+          localStorage[date] = JSON.stringify(data);
+        }
+        else {
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
+        }
+        data[0].push(sousdata);
+        localStorage[date] = JSON.stringify(data);
+      });
+    </script>
+
+    <script name="datajson">
+      function jsoncallback(data){
+        $(data.profs).each(function() {
+          profsOption = "<option value=\"" + this.name + "\" id=\"" + this.name + "\" label=\"" + this.name + "\">" + this.cours + "</option>";
+          $('#optionsNomDuProf').append(profsOption);
+        });
+      };
+      $(document).ready(function() {
+        $.getJSON("http://sismondi.ch/profs_cours?jsoncallback=?");
+      });
+      $("input[id='nomDuProf']").focusout('input', function(e){
+        $("datalist[id='optionsNomDuCours']").empty();
+        var selected = $(this).val(),
+        option = document.getElementById(selected),
+        liste = option.innerHTML.split(',');
+        for (mot of liste){
+          coursOption = "<option value=\"" + mot + "\" id=\"" + mot + "\">" + mot + "</option>";
+          $("datalist[id='optionsNomDuCours']").append(coursOption);
+        };
+      });
+    </script>
+
+    <script name="datejour">
+    var d = new Date(),
+  	    listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+  	    listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+  	    day = document.getElementById("day"),
+  	    month = document.getElementById("month"),
+  	    year = document.getElementById("year");
+  	document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+  	day.value=d.getDate();
+  	if(day.value<10) {
+  		day.value="0"+day.value;
+  	};
+  	month.value=d.getMonth()+1;
+  	if(month.value<10) {
+  		month.value="0"+month.value;
+  	};
+  	year.value=d.getFullYear();
+  	day.addEventListener("keyup", function() {
+  		if((day.value>3 || day.value.length==2) && day.value<32){
+  			month.focus();
+  		};
+  	});
+  	day.addEventListener("blur", function() {
+  		if(day.value.length==1) {
+  			day.value="0"+day.value;
+  		};
+  	});
+  	month.addEventListener("keypress", function() {
+  		month.addEventListener("keyup", function() {
+  			if((month.value>1 || month.value.length==2) && month.value<13 ){
+  				year.focus();
+  			};
+  		});
+  	});
+  	month.addEventListener("blur", function() {
+  		if(month.value.length==1) {
+  			month.value="0"+month.value;
+  		};
+  	});
+  	$("input").keyup( function() {
+  		d.setDate(day.value);
+  		d.setFullYear(year.value);
+  		d.setMonth(month.value-1);
+  		document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+  	});
+  	$("input").focus(function() {
+  		this.select();
+  	});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf8">
+    <title>Information Particulière</title>
+    <link rel="shot cut icon" href="subaru.ico">
+    <link rel="stylesheet" href="absence.css">
+  </head>
+
+  <body>
+    <header>
+      <a href="acceuil.html" id="return"> retour </a>
+      <p id="header"><strong>Information Particulière </strong></p>
+    </header>
+    <form style="background: white; text-align:center;" name="infoparti" autocomplete="off">
+      <button id="confirmer" type="submit" style="border-radius: 5px;">confirmer</button>
+      <button type="reset" style="border-radius: 5px;">reset</button>
+      <table style="width:100%">
+        <th>
+          <section id="date">
+            <br><label for="day">Début de l'affichage : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year" placeholder="year">
+            <p id="jourDeLaSemaine" style="color:blue;"></p>
+          </section>
+          <section id="datefin">
+            <label for="day">Date concernée : </label>
+            <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
+            <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
+            <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
+            <p id="jourDeLaSemaine2" style="color:blue;"></p>
+          </section>
+          <section>
+            Titre : <input name="titre" type="text" placeholder="titre" id="titre" size="30"></textarea><br><br>
+            <textarea name="info" placeholder="information" rows="8" cols="40"></textarea>
+          </section><br>
+        </th>
+      </table>
+    </from>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous">
+    </script>
+
+    <script name="submit">
+      document.getElementById("confirmer").addEventListener("click",function(){
+        if(document.infoparti.day.value<10){
+          var day = "0"+String(Number(document.infoparti.day.value));
+        }else{
+          var day = String(Number(document.infoparti.day.value));
+        };
+        if(document.infoparti.month.value<10){
+          var month = "0"+String(Number(document.infoparti.month.value));
+        }
+        else{
+          var month = String(Number(document.infoparti.month.value));
+        };
+          year = String(Number(document.infoparti.year.value));
+        if(day=="00"||month=="00"||year=="0"||day==""||month==""||year==""||day.match(/[^0-9]+/)||month.match(/[^0-9]+/)||year.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
+        var date = year+month+day;
+        if(document.infoparti.day2.value<10){
+          var day2 = "0"+String(Number(document.infoparti.day2.value));
+        }else{
+          var day2 = String(Number(document.infoparti.day2.value));
+        };
+        if(document.infoparti.month2.value<10){
+          var month2 = "0"+String(Number(document.infoparti.month2.value));
+        }else{
+          var month2 = String(Number(document.infoparti.month2.value));
+        };
+        year2 = String(Number(document.infoparti.year2.value));
+        if(day2=="00"||month2=="00"||year2=="0"||day2==""||month2==""||year2==""||day2.match(/[^0-9]+/)||month2.match(/[^0-9]+/)||year2.match(/[^0-9]+/)){
+          alert("Mettez les bonnes dates!!");
+          return;
+        }
+        if(year<1000){
+          alert("Mettez l'année correct");
+          return;
+        }
+        var date2 = year2+month2+day2;
+        if(document.infoparti.titre.value==""){
+          alert("Mettez le titre!!");
+          return;
+        }
+        else{
+          var titre=document.infoparti.titre.value;
+        }
+        if(date2<date){
+          alert("Mettez la bonne date finale!!")
+          return;
+        }
+        var commentaire = document.infoparti.info.value;
+        if(commentaire==""){
+          alert("Mettez une information!!")
+          return;
+        }
+        if(localStorage[date]===undefined){
+          data=[[],[],[]];
+          localStorage[date] = JSON.stringify(data);
+        }
+        else {
+          data_string = localStorage[date];
+          data = JSON.parse(data_string);
+        }
+        var sousdata=[titre,date2,commentaire];
+        data[1].push(sousdata);
+        localStorage[date] = JSON.stringify(data);
+      });
+    </script>
+
+    <script name="datejour1">
+      var d = new Date(),
+    	    listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+    	    listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+    	    day = document.getElementById("day"),
+    	    month = document.getElementById("month"),
+    	    year = document.getElementById("year");
+    	document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+    	day.value=d.getDate();
+    	if(day.value<10) {
+    		day.value="0"+day.value;
+    	};
+    	month.value=d.getMonth()+1;
+    	if(month.value<10) {
+    		month.value="0"+month.value;
+    	};
+    	year.value=d.getFullYear();
+    	day.addEventListener("keyup", function() {
+    		if((day.value>3 || day.value.length==2) && day.value<32){
+    			month.focus();
+    		};
+    	});
+    	day.addEventListener("blur", function() {
+    		if(day.value.length==1) {
+    			day.value="0"+day.value;
+    		};
+    	});
+    	month.addEventListener("keypress", function() {
+    		month.addEventListener("keyup", function() {
+    			if((month.value>1 || month.value.length==2) && month.value<13 ){
+    				year.focus();
+    			};
+    		});
+    	});
+    	month.addEventListener("blur", function() {
+    		if(month.value.length==1) {
+    			month.value="0"+month.value;
+    		};
+    	});
+    	$("input").keyup( function() {
+    		d.setDate(day.value);
+    		d.setFullYear(year.value);
+    		d.setMonth(month.value-1);
+    		document.getElementById("jourDeLaSemaine").innerHTML=listeJours[d.getDay()]+", "+d.getDate()+" "+listeMois[d.getMonth()]+" "+d.getFullYear();
+    	});
+    	$("input").focus(function() {
+    		this.select();
+    	});
+      </script>
+
+      <script name="datejour2">
+        var d2 = new Date(),
+            listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+            listeMois = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+            day2 = document.getElementById("day2"),
+            month2 = document.getElementById("month2"),
+            year2 = document.getElementById("year2");
+		d2.setDate(d2.getDate()+1)
+        document.getElementById("jourDeLaSemaine2").innerHTML=listeJours[d2.getDay()]+", "+(d2.getDate())+" "+listeMois[d2.getMonth()]+" "+d2.getFullYear();
+        day2.value=d2.getDate();
+        if(day2.value<10) {
+          day2.value="0"+day2.value;
+        };
+        month2.value=d2.getMonth()+1;
+        if(month2.value<10) {
+          month2.value="0"+month2.value;
+        };
+        year2.value=d2.getFullYear();
+        day2.addEventListener("keyup", function() {
+          if((day2.value>3 || day2.value.length==2) && day2.value<32){
+            month2.focus();
+          };
+        });
+        day2.addEventListener("blur", function() {
+          if(day2.value.length==1) {
+            day2.value="0"+day2.value;
+          };
+        });
+        month2.addEventListener("keypress", function() {
+          month2.addEventListener("keyup", function() {
+            if((month2.value>1 || month2.value.length==2) && month2.value<13 ){
+              year2.focus();
+            };
+          });
+        });
+        month2.addEventListener("blur", function() {
+          if(month2.value.length==1) {
+            month2.value="0"+month2.value;
+          };
+        });
+        $("input").keyup( function() {
+          d2.setDate(day2.value);
+          d2.setFullYear(year2.value);
+          d2.setMonth(month2.value-1);
+          document.getElementById("jourDeLaSemaine2").innerHTML=listeJours[d2.getDay()]+", "+d2.getDate()+" "+listeMois[d2.getMonth()]+" "+d2.getFullYear();
+        });
+        $("input").focus(function() {
+          this.select();
+        });
+    </script>
+
+      <script name="image">
+        function readURL(input) {
+          if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#showimg').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+        $("#image").change(function(){
+          readURL(this);
+        });
+      </script>
+    </body>
+</html>

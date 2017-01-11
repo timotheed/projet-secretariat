@@ -1,0 +1,32 @@
+body {
+       /*background: beige;*/
+       background: url(chat.jpg) center;
+       text-align: center;
+       font-family: Arial, sans-serif;
+     }
+
+#header {
+  margin-top: 30px;
+  color: black ;
+  font-size: 64px;
+  background-image: linear-gradient(15deg, red,white, cyan);
+  border-radius: 30px;
+  box-shadow: 6px 8px 4px gray;
+}
+
+a {
+  display: inline-block;
+  text-align: center;
+  width: 10em;
+  text-decoration: none;
+}
+
+p.choix {
+  margin: 30px auto;
+  padding: 2px;
+  color: black ;
+  font-size: 30px;
+  background-image: linear-gradient(skyblue , blue );
+  border-radius: 30px;
+  box-shadow: 6px 8px 4px gray;
+}
