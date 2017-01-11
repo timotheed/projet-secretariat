@@ -4,283 +4,299 @@
   <head>
     <meta charset="utf8">
     <title>Tableau d'affichage</title>
-  <style>
-    body{
-    	font-family: "Verdana";
-    }
-    #carrousel{
-        position:relative;
-    	top:110px;
-        height:600px;
-        width:1240px;
-        margin:auto;
-    }
-    #carrousel ul li{
-        position:absolute;
-        width:1240px;
-        height:600px;
-        left:0;
-    }
-    .prev {
-        position:relative;
-        top: 200px;
-        left: 0px;
-    }
-    .next {
-        position:relative;
-        top: 0px;
-        left: 700px;
-
-    }
-    #logo {
-    	postion : absolute;
-        top:18px;
-        left: 8px;
-    	width: 175px;
-    	height: auto;
-    	}
-    #batiments {
-    	position : absolute;
-    	top:0px;
-    }
-    #clock {
-    	position: absolute;
-        right:45px;
-    	top:34px;
-    	width: 200px;
-    	text-align: center;
-        font-size: 40px;
-    	z-index:8;
-    	background-color:white;
-    	border-radius: 10px;
-    }
-    #trump {
-    	position: absolute;
-    	right: 20px;
-    	width: 250px;
-    	height: auto;
-    	z-index: 6;
-    }
-    .entete {
-    	top:0px;
-    	padding:15px 8px;
-    	line-height:1.3em;
-    	color:rgb(200, 30, 30);
-    	background:rgb(205,205,205);;
-    	font-size:80px;
-    	text-indent:10px;
-    	font-weight:bold;
-    	z-index: ;
-    	margin-bottom: 40px;
-    }
-    .prof {
-    	font-size : 32px;
-    	font-weight:bold;
-    	margin-bottom: 1.8em;
-    }
-    .cours {
-    	color: red;
-    }
-    .message {
-    	color : black;
-    	font-weight: normal;
-    }
-  </style>
+	<link rel="stylesheet" href="affichage.css">
   </head>
 
   <body onload="startTime()">
-    <img id="batiments" src="http://www.sismondi.ch/portal_css/Sunburst%20Theme/fond.gif" style="position:absolute;z-index:4;" />
-    <img id ="logo" src="http://www.sismondi.ch/logo.jpg" style="position:absolute;z-index:2;" />
+    <img id="batiments" src="http://www.sismondi.ch/portal_css/Sunburst%20Theme/fond.gif" style="position:absolute;z-index:2;" />
+    <a href="acceuil.html" id="return"><img id ="logo" src="http://www.sismondi.ch/logo.jpg" style="position:absolute;z-index:4;" /></a>
     <div id="clock"></div>
-    <img id="trump" src="chat.jpg"/>
+    <img id="trump" src="trumpClock.jpg"/>
     <div id="carrousel">
-    <ul id="carrouselListe" style="list-style-type:none"></ul>
-
-    </div>
+		<ul id="carrouselListe" style="list-style-type:none">
+			<li id="meteo">
+			<iframe src="https://www.meteoblue.com/en/weather/widget/three/geneva_switzerland_2660646?geoloc=fixed&days=7&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=image"  frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups" style="width: 805px;height: 623px"></iframe><div><!-- DO NOT REMOVE THIS LINK --><a href="https://www.meteoblue.com/en/weather/forecast/week/geneva_switzerland_2660646?utm_source=weather_widget&utm_medium=linkus&utm_content=three&utm_campaign=Weather%2BWidget" target="_blank">meteoblue</a></div>
+			</li>
+		</ul>
+	</div>
     <div id="aff"></div>
 
-    <!-- on inclut la bibliothèque depuis les serveurs de Google -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-    <script>
-      $(document).ready(function(){
+<script>
 
-      var $carrousel = $('#carrousel'), // on cible le bloc du carrousel
-          $img = $('#carrousel li'), // on cible les images contenues dans le carrousel
-          indexImg = $img.length - 1, // on définit l'index du dernier élément
-          i = 0, // on initialise un compteur
-          $currentImg = $img.eq(i); // enfin, on cible l'image courante, qui possède l'index i (0 pour l'instant)
+/////////////////////////////////////////// carrousel ///////////////////////////////////////////
 
-      $img.css('display', 'none'); // on cache les images
-      $img.css('opacity', 0);
-      $currentImg.css('display', 'block'); // on affiche seulement l'image courante
-      $currentImg.css('opacity', 1);
+$(document).ready(function(){
 
+	var $carrousel = $('#carrousel'),
+	    $img = $('#carrousel li'),
+	    indexImg = $img.length - 1,
+	    i = 0,
+	    $currentImg = $img.eq(i);
 
-      function slideImg(){
-        setTimeout(function(){ // on utilise une fonction anonyme
-      	   $img.eq(i).animate({
-             opacity: 0,
-           }, 500, function(){
-             if(i < indexImg){ // si le compteur est inférieur au dernier index
-               i++; // on l'incrémente
-             }
-             else{ // sinon, on le remet à 0 (première image)
-        	      i = 0;
-              }
-          $img.css("display","none");
-        	$currentImg = $img.eq(i);
-        	$currentImg.css("display","block");
-        	$currentImg.animate({
-            opacity: 1,
-          }, 500 );
-          });
-        	slideImg(); // on oublie pas de relancer la fonction à la fin
-      }, 5000); // on définit l'intervalle à 7000 millisecondes (7s)
-      }
+	$img.css('display', 'none');
+	$img.css('opacity', 0);
+	$currentImg.css('display', 'block');
+	$currentImg.css('opacity', 1);
 
-      slideImg(); // enfin, on lance la fonction une première fois
+	function slideImg(){
+		setTimeout(function(){
+			$img.eq(i).animate({
+				opacity: 0,
+			}, 500, function(){
+				if(i < indexImg){
+					i++;
+				}else{
+					i = 0;
+				};
+				$img.css("display","none");
+				$currentImg = $img.eq(i);
+				$currentImg.css("display","block");
+				$currentImg.animate({
+					opacity: 1,
+				}, 500 );
+			});
+			slideImg();
+		}, 5000);
+	};
 
-      });
+	slideImg();
 
-      function startTime() {
-          var today = new Date();
-          var h = today.getHours();
-          var m = today.getMinutes();
-          var s = today.getSeconds();
-          m = checkTime(m);
-          s = checkTime(s);
-          document.getElementById('clock').innerHTML =
-          h + ":" + m + ":" + s;
-          var t = setTimeout(startTime, 500);
-      }
-      function checkTime(i) {
-          if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-          return i;
-      }
+});
 
-      var ajd= new Date();
-      var listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
-          listeMois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-      var n=0;
-      while(n<3){
-      	if(ajd.getDate()<10){
-      		var ajdJour = "0"+String(ajd.getDate());
-      	}else{
-      		var ajdJour = String(ajd.getDate())
-      	};
-      	if(ajd.getMonth()<10){
-      		var ajdMois = "0"+String(ajd.getMonth()+1);
-      	}else{
-      		var ajdMois = String(ajd.getMonth()+1);
-      	};
+/////////////////////////////////////////// horloge ///////////////////////////////////////////
+
+function startTime() {
+	var today = new Date(),
+	    h = today.getHours(),
+	    m = today.getMinutes(),
+	    s = today.getSeconds();
+		
+	m = checkTime(m);
+	s = checkTime(s);
+	document.getElementById('clock').innerHTML = h+":"+m+":"+s;
+	var t = setTimeout(startTime, 500);
+}
+
+function checkTime(i) {
+	if (i < 10) {i = "0" + i};
+	return i;
+}
+	  
+/////////////////////////////////////////// affichage absences ///////////////////////////////////////////
+
+var ajd= new Date();
+var listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+	listeMois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+var n=0;
+while(n<4){
+	if(n<3 || ajd.getDay()==1){
+		if(ajd.getDate()<10){
+			var ajdJour = "0"+String(ajd.getDate());
+		}else{
+			var ajdJour = String(ajd.getDate())
+		};
+		if(ajd.getMonth()<9){
+			var ajdMois = "0"+String(ajd.getMonth()+1);
+		}else{
+			var ajdMois = String(ajd.getMonth()+1);
+		};
       	var ajdAnnee = String(ajd.getFullYear());
-      	if (localStorage[ajdAnnee+ajdMois+ajdJour] != null) {
-      		var hugelist= JSON.parse(localStorage[ajdAnnee+ajdMois+ajdJour]);
-      		if (hugelist[0]!= ""){
-      			var thelist=hugelist[0];
-      			ajouterLI(ajdJour,ajdMois,ajdAnnee,1,0);
-      		};
-      		if (hugelist[1]!=""){
-      			var listinfoparti=hugelist[1];
-            	ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,0,1);
-
-      		};
-      		if (hugelist[2]!=""){
-      			var listinfogen=hugelist[2];
-            ajouterInfoGen(ajdJour,ajdMois,ajdAnnee,0,1);
-
-      		};
-        /*  if (hugelist[0]=="" && hugelist[1]=="" && hugelist[0]==""){
-            journeeDeprimante(ajdJour,ajdMois,ajdAnnee);
-          };*/
-      	}
-        else{
-            journeeDeprimante(ajdJour,ajdMois,ajdAnnee,1);
-            
-        };
-      	n++;
-      	ajd.setDate(ajd.getDate()+1);
-      };
-
-
-/////////////////////////////////////////////////////////////
-  function journeeDeprimante(ajdJour,ajdMois,ajdAnnee,nombre){
-    $("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
-  return;
+		if (localStorage[ajdAnnee+ajdMois+ajdJour] != null) {
+			var hugelist= JSON.parse(localStorage[ajdAnnee+ajdMois+ajdJour]);
+			if (hugelist[0]!= ""){
+				var thelist=hugelist[0];
+				ajouterAbsences(ajdJour,ajdMois,ajdAnnee,1,0);
+			};
+		};
+	};
+	n++;
+	ajd.setDate(ajd.getDate()+1);
 };
 
-  function ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,i,nombre){
-    	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'part"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
-      while(i<listinfoparti.length){
-        	$('#jour'+ajdMois+ajdJour+nombre+'part').append('<div class="prof" id="comment'+ajdMois+ajdJour+i+'">'+listinfoparti[i][0]+'</span><br/><span class="message">'+listinfoparti[i][2]+'</span></div>');
-          var Div1 = document.querySelector('#jour'+ajdMois+ajdJour+nombre+'part');
 
-          	if (Div1.offsetHeight < Div1.scrollHeight){
-              var element = document.querySelector('#comment'+ajdMois+ajdJour+i);
-        			element.parentNode.removeChild(element);
-        			nombre++;
-        			ajouterInfoPart(ajdJour,ajdMois,ajdAnnee,i,nombre);
-        			return;
-            }
-            else{
-              };
-              i++;
+function ajouterAbsences(ajdJour,ajdMois,ajdAnnee,number,i){
+	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+number+'"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
+	while(i<thelist.length){
+
+		var lesCours = "",
+		    q=0;
+		
+		while(q<thelist[i][1].length){
+			if(thelist[i][1][q][1]!=""){
+				var lesHeures=thelist[i][1][q][0]+"-"+thelist[i][1][q][1];
+			}else{
+				var lesHeures=thelist[i][1][q][0];
+			};
+			lesCours += thelist[i][2][q]+' '+lesHeures;
+			if(q!=thelist[i][1].length-1){
+				lesCours+=' / ';
+			};
+			q++;
+		};
+
+      	$("#carrousel ul li:last").append('<div class="prof" id="prof'+ajdMois+ajdJour+i+'">'+thelist[i][0]+'<br/><span class="cours">'+lesCours+'</span><span class="message">  '+thelist[i][3]+'</span></div>');
+      	
+		var leDiv = document.querySelector('#jour'+ajdMois+ajdJour+number);
+		if (leDiv.offsetHeight < leDiv.scrollHeight) {
+			var element = document.querySelector('#prof'+ajdMois+ajdJour+i);
+			element.parentNode.removeChild(element);
+			number++;
+			ajouterAbsences(ajdJour,ajdMois,ajdAnnee,number,i);
+			return;
+		}else{
+		};
+		i++;
+	};
 };
-      return;
-  };
+	  
+/////////////////////////////////////////// affichage informations ///////////////////////////////////////////
 
+////////////// verifier si info(s) aujourd'hui //////////////
 
-  function ajouterInfoGen(ajdJour,ajdMois,ajdAnnee,i,nombre){
-    while(i<listinfogen.length){
-      $("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+nombre+'gen"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
-      $('#jour'+ajdMois+ajdJour+nombre+'gen').append('<div id="comment"><span class="prof">'+listinfogen[i][0]+'</span><br/><span class="message">'+listinfogen[i][2]+'</span><br/><img src="'+listinfogen[i][3]+'"></div>');
-      i++;
-      nombre++;
-      };
-  };
+ajd = new Date();
+var listeJours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+    listeMois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];     
+if(ajd.getDate()<10){
+	var ajdJour = "0"+String(ajd.getDate());
+}else{
+	var ajdJour = String(ajd.getDate())
+};
+if(ajd.getMonth()<9){
+	var ajdMois = "0"+String(ajd.getMonth()+1);
+}else{
+	var ajdMois = String(ajd.getMonth()+1);
+};
+var ajdAnnee = String(ajd.getFullYear());
 
-/////////////////////////////////////////////////////////////
-      function ajouterLI(ajdJour,ajdMois,ajdAnnee,number,i){
+if (localStorage[ajdAnnee+ajdMois+ajdJour] != null) {
+	var hugelist= JSON.parse(localStorage[ajdAnnee+ajdMois+ajdJour]);
+	if (hugelist[1]!=""){
+		var listinfoparti=hugelist[1];
+			ajouterInfo(listinfoparti,ajdJour,ajdMois,ajdAnnee,1,0,1);
+	};
+	if (hugelist[2]!=""){
+		var listinfogen=hugelist[2];
+		ajouterInfo(listinfogen,ajdJour,ajdMois,ajdAnnee,1,0,2);
+	};
+};
 
-      	$("#carrousel ul").append('<li id="jour'+ajdMois+ajdJour+number+'"><div class="entete">'+listeJours[ajd.getDay()]+' '+ajdJour+' '+listeMois[ajd.getMonth()]+'</div></li>');
-      	while(i<thelist.length){
+////////////// ajouter les infos au carrousel //////////////
 
-      		var lesCours = "";
-      		var q=0;
+/// mettre les infos dans l'ordre ///
 
-      		while(q<thelist[i][1].length){
-      			lesCours += thelist[i][2][q]+' '+thelist[i][1][q];
-      			if(q!=thelist[i][1].length-1){
-      				lesCours+=' / ';
-      			};
-      			q++;
-      		};
+function ajouterInfo(thisList,ajdJour,ajdMois,ajdAnnee,number,i,parti_gen){
+	var nombres=[],
+		infopartiordre=[];
+	while(i<thisList.length){
+		nombres.push(thisList[i][1]);
+		i++;
+	};
 
-      		$("#carrousel ul li:last").append('<div class="prof" id="prof'+ajdMois+ajdJour+i+'">'+thelist[i][0]+'<br/><span class="cours">'+lesCours+'</span><span class="message">  '+thelist[i][3]+'</span></div>');
-      		var leDiv = document.querySelector('#jour'+ajdMois+ajdJour+number);
+	nombres.sort(function(a, b) {
+		return a - b;
+	});
+	
+	var longueurListe=thisList.length,
+	    l=0; 
+	while(l<longueurListe){
+		i=0
+		while(i<thisList.length){
+			if(nombres[l]==thisList[i][1]){
+				infopartiordre.push(thisList[i]);
+				thisList.splice(i,1);
+				break;
+			};
+			i++;
+		};
+		l++;
+	};
+		
+	thisList=infopartiordre;
 
-      		if (leDiv.offsetHeight < leDiv.scrollHeight) {
-      			var element = document.querySelector('#prof'+ajdMois+ajdJour+i);
-      			element.parentNode.removeChild(element);
-      			number++;
-      			ajouterLI(ajdJour,ajdMois,ajdAnnee,number,i);
-      			return;
-      		} else {
-      		};
+/// afficher les infos ///	
 
-      		i++;
-      	};
-      };
+	i=0
+	while(i<thisList.length){
+		var dateFinale = new Date(),
+		    dateAJD = new Date(),
+		    datedaffi_str = thisList[i][1],
+		    jourdaffi_str=datedaffi_str.substring(6,8),
+		    jourdaffi=Number(jourdaffi_str),
+		    moisdaffi=Number(datedaffi_str.substring(4,6)),
+		    anneedaffi=Number(datedaffi_str.substring(0,4));
+		dateFinale.setFullYear(anneedaffi, moisdaffi-1, jourdaffi);
 
-      function refresh(){
-      	var nbSlide = $('li').length,
-      	leTemps=60-(60%nbSlide);
-      	document.getElementById("aff").innerHTML=nbSlide+'   '+leTemps;
-          setTimeout(function(){ // on utilise une fonction anonyme
-      		location.reload();
-      	}, leTemps*5000);
-      };
-      refresh();
-    </script>
+		/// recréer un fichier si l'info doit aussi être affichée demain ///
+
+		if(dateFinale>dateAJD){
+			dateAJD.setDate(dateAJD.getDate()+1);
+			if(dateAJD.getDate()<10){
+				var demJour = "0"+String(dateAJD.getDate());
+			}else{
+				var demJour = String(dateAJD.getDate())
+			};
+			if(dateAJD.getMonth()<9){
+				var demMois = "0"+String(dateAJD.getMonth()+1);
+			}else{
+				var demMois = String(dateAJD.getMonth()+1);
+			};
+			var demAnnee = String(dateAJD.getFullYear());
+
+			if(localStorage[demAnnee+demMois+demJour]===undefined){
+				data=[[],[],[]];
+				localStorage[demAnnee+demMois+demJour] = JSON.stringify(data);
+			} else {
+				data_string = localStorage[demAnnee+demMois+demJour];
+				data = JSON.parse(data_string);
+			};
+			var h=0;
+			var deja = 0;
+			while(h<data[parti_gen].length){
+				if(data[parti_gen][h][0]==thisList[i][0] && data[parti_gen][h][1]==thisList[i][1] && data[parti_gen][h][2]==thisList[i][2]){
+					deja=1;
+				};
+				h++;
+			};
+			if(deja==0){
+				data[parti_gen].push(thisList[i]);
+			};
+			localStorage[demAnnee+demMois+demJour] = JSON.stringify(data);
+		};
+		
+		/// ajouter info au carrousel ///
+
+		if(parti_gen==1){
+			$("#carrousel ul").append('<li id="infoparti'+ajdMois+ajdJour+number+'"><div class="entete">'+listeJours[dateFinale.getDay()]+' '+jourdaffi_str+' '+listeMois[dateFinale.getMonth()]+'</div></li>');
+			$("#carrousel ul li:last").append('<div class="titre" id="message'+ajdMois+ajdJour+i+'">'+thisList[i][0]+'<br/><span class="message">  '+thisList[i][2]+'</span></div>');
+		};
+		
+		if(parti_gen==2){
+			if(thisList[i][3]==""){
+				$("#carrousel ul").append('<li id="infogen'+ajdMois+ajdJour+number+'"><div class="entete">'+thisList[i][0]+'</div></li>');
+				$("#carrousel ul li:last").append('<div id="message'+ajdMois+ajdJour+i+'" class="message"  >'+thisList[i][2]+'</div>');
+			}else{
+				$("#carrousel ul").append('<li class="blockImage" id="image'+ajdMois+ajdJour+number+'" ><img class="image" src="'+thisList[i][3]+'"></li>');
+			};
+		};
+
+		number++;
+		i++;
+	};
+};
+	  
+/////////////////////////////////////////// refresh ///////////////////////////////////////////
+
+function refresh(){
+	var nbSlide = $('li').length,
+	    leTemps=60-(60%nbSlide);
+	document.getElementById("aff").innerHTML=nbSlide+'   '+leTemps;
+	setTimeout(function(){
+		location.reload();
+	}, leTemps*5000);
+};
+refresh();
+
+</script>
 </body>
