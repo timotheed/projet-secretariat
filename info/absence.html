@@ -66,7 +66,7 @@
                     <option value="H10">H10</option>
                     <option value="H11">H11</option>
                  </select>
-				 Nom du cours : <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
+			Nom du cours : <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
      		     <datalist id="optionsNomDuCours">
       		     </datalist>
                   <br>
@@ -117,7 +117,7 @@
         }else{
           var day = String(Number(document.infoabsence.day.value));
         };
-        if(document.infoabsence.month.value<10){
+        if(document.infoabsence.month.value<9){
           var month = "0"+String(Number(document.infoabsence.month.value));
         }else{
           var month = String(Number(document.infoabsence.month.value));
