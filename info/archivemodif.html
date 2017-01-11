@@ -53,39 +53,39 @@
           <section id="cours">
             <section id="lecon1">
               <select id="premiereHeure1" name="lecon" size="1">
-                  <option value="h1" selected>h1</option>
-                  <option value="h2">h2</option>
-                  <option value="h3">h3</option>
-                  <option value="h4">h4</option>
-                  <option value="h5">h5</option>
-                  <option value="h6">h6</option>
-                  <option value="h7">h7</option>
-                  <option value="h8">h8</option>
-                  <option value="h9">h9</option>
-                  <option value="h10">h10</option>
-                  <option value="h11">h11</option>
-              </select>
-              <select id="deuxiemeHeure1" name="lecon" size="1">
-                  <option value="zero"> </option>
-                  <option value="h1">h1</option>
-                  <option value="h2" selected>h2</option>
-                  <option value="h3">h3</option>
-                  <option value="h4">h4</option>
-                  <option value="h5">h5</option>
-                  <option value="h6">h6</option>
-                  <option value="h7">h7</option>
-                  <option value="h8">h8</option>
-                  <option value="h9">h9</option>
-                  <option value="h10">h10</option>
-                  <option value="h11">h11</option>
-              </select>
+                    <option value="H1" selected>H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
+                 </select>
+                 <select id="deuxiemeHeure1" name="lecon" size="1">
+                    <option value="zero"> </option>
+                    <option value="H1">H1</option>
+                    <option value="H2" selected>H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                    <option value="H7">H7</option>
+                    <option value="H8">H8</option>
+                    <option value="H9">H9</option>
+                    <option value="H10">H10</option>
+                    <option value="H11">H11</option>
+                 </select>
               <input list="optionsNomDuCours" id='nomDuCours1' placeholder="NOM DU COURS" name="p" /><br>
               <datalist id="optionsNomDuCours">
               </datalist>
               <br>
             </section>
           </section>
-          <textarea name="moreinfo" placeholder="more information" cols="40" rows="5" id="moreinfo"></textarea>
+          <textarea name="moreinfo" placeholder="informations supplémantaires (facultatif)" cols="40" rows="5" id="moreinfo"></textarea>
         </section>
       </section>
 
@@ -93,7 +93,7 @@
         <p style="font-size:25px">Information Particulière</p>
         <section id="parinfo" style="display:none">
           <section id="datefin1">
-            <label for="day">Date finale de l'affichage : </label>
+            <label for="day">Date concernée : </label>
             <input class="laDate" type="text" size="3" maxlength="2" id="day2" placeholder="day">
             <input class="laDate" type="text" size="3" maxlength="2" id="month2" placeholder="month">
             <input class="laDate" type="text" size="4" maxlength="4" id="year2" placeholder="year">
@@ -105,7 +105,7 @@
       </section>
 
       <section id="infogeninfo" style="display:none">
-        <p style="font-size:25px">Information Général</p>
+        <p style="font-size:25px">Information Générale</p>
         <section id="geninfo" style="display:none">
           <section id="datefin2">
             <label for="day">Date finale de l'affichage : </label>
@@ -161,7 +161,7 @@
               }else{
                 var ajdJour = String(ajd.getDate());
               };
-              if(ajd.getMonth()<10){
+              if(ajd.getMonth()<9){
                 var ajdMois = "0"+String(ajd.getMonth()+1);
               }else{
                 var ajdMois = String(ajd.getMonth()+1);
@@ -195,7 +195,7 @@
 
     <script name="all delete">
       function allclean(){
-        var answer = confirm("ARE U REALLY SURE?");
+        var answer = confirm("ÊTES VOUS SÛRS ?");
         if(answer==true){
             localStorage.clear();
             location.reload();
